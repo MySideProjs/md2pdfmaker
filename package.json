@@ -16,6 +16,7 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "remark-parse": "^11.0.0",
+    "remark-sectionize": "^2.0.0",
     "unified": "^11.0.5"
   },
   "devDependencies": {
@@ -31,6 +32,7 @@
     "husky": "^9.1.6",
     "lint-staged": "^15.2.10",
     "prettier": "^3.3.3",
+    "type-fest": "^4.26.1",
     "typescript": "~5.6.2",
     "typescript-eslint": "^8.11.0",
     "unocss": "^0.64.0",
