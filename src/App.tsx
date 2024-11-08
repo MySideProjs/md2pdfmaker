@@ -7,15 +7,16 @@ import { SwitchCard } from "./components/switch-card"
 import { loadMarkdownFile } from "./utils/file"
 
 function App() {
-  const [markdownContent, setMarkdownContent] = useState("")
+  const [mdFile, setMdFile] = useState<Blob>(new Blob())
   const [currentView, setCurrentView] = useState<"switch-view" | "editor-view">("switch-view")
   const whenMarkdownContentLoad = useCallback(
-    (m: string) => {
-      setMarkdownContent(m)
+    (file: Blob) => {
+      setMdFile(file)
       setCurrentView("editor-view")
     },
-    [setMarkdownContent, setCurrentView],
+    [setMdFile, setCurrentView],
   )
+
   const onChooseFile = () => {
     loadMarkdownFile(whenMarkdownContentLoad)
   }
@@ -24,7 +25,7 @@ function App() {
     <>
       <AppHeader />
       {currentView == "switch-view" && <SwitchCard onChooseFileClick={onChooseFile} onEditNowClick={noop} />}
-      {currentView == "editor-view" && <MarkdownEditorAndPdfViewer markdown={markdownContent} />}
+      {currentView == "editor-view" && <MarkdownEditorAndPdfViewer chosenMarkdownFile={mdFile} />}
     </>
   )
 }
