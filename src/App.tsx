@@ -1,4 +1,3 @@
-import { noop } from "lodash"
 import { useCallback, useState } from "react"
 import "./App.css"
 import { AppHeader } from "./components/app-header"
@@ -20,11 +19,14 @@ function App() {
   const onChooseFile = () => {
     loadMarkdownFile(whenMarkdownContentLoad)
   }
+  const onEditNow = () => {
+    setCurrentView("editor-view")
+  }
 
   return (
     <>
       <AppHeader />
-      {currentView == "switch-view" && <SwitchCard onChooseFileClick={onChooseFile} onEditNowClick={noop} />}
+      {currentView == "switch-view" && <SwitchCard onChooseFileClick={onChooseFile} onEditNowClick={onEditNow} />}
       {currentView == "editor-view" && <MarkdownEditorAndPdfViewer chosenMarkdownFile={mdFile} />}
     </>
   )

@@ -1,33 +1,30 @@
 import { Document, Page, PDFViewer } from "@react-pdf/renderer"
-import { useState } from "react"
-import Editor from "react-simple-code-editor"
-import { useEffectOnce } from "react-use"
-import { toMdTree } from "../../utils/formatter"
-import { MdNodeRender } from "../pdf-renders"
 import { highlight, languages } from "prismjs"
 import "prismjs/components/prism-markdown"
+import { useEffect, useState } from "react"
+import Html from "react-pdf-html"
+import Editor from "react-simple-code-editor"
+import { useEffectOnce } from "react-use"
+import { markdown2html } from "../../utils/formatter"
 
 const mdHighlighter = (content: string) => highlight(content, languages.markdown!, "markdown")
 
 export type MarkdownEditorAndPdfViewerProps = { chosenMarkdownFile: Blob }
 export const MarkdownEditorAndPdfViewer = (p: MarkdownEditorAndPdfViewerProps) => {
   const [mdContent, setMdContent] = useState("")
+
   useEffectOnce(() => {
     const reader = new FileReader()
-    reader.addEventListener("loadend", () => setMdContent(reader.result as string))
+    reader.addEventListener("loadend", () => {
+      console.log("load end")
+      setMdContent(reader.result as string)
+    })
     reader.readAsText(p.chosenMarkdownFile)
   })
+
   return (
     <div className="flex flex-row">
-      <Editor
-        className="flex-1 h-screen scroll-auto"
-        highlight={mdHighlighter}
-        onValueChange={setMdContent}
-        value={mdContent}
-        style={{
-          padding: 20,
-        }}
-      />
+      <Editor className="flex-1 h-screen scroll-auto" highlight={mdHighlighter} onValueChange={setMdContent} value={mdContent} />
       <PdfPart className="flex-1 h-screen" markdown={mdContent} />
     </div>
   )
@@ -38,7 +35,14 @@ type PdfPartProps = {
   className?: string
 }
 const PdfPart = (p: PdfPartProps) => {
-  const mdTree = toMdTree(p.markdown)
+  const [htmlFromMd, setHtmlFromMd] = useState("")
+  useEffect(() => {
+    markdown2html(p.markdown).then((c) => {
+      console.log(c)
+      setHtmlFromMd(c)
+    })
+  }, [p.markdown])
+
   return (
     <PDFViewer className={p.className}>
       <Document>
@@ -46,11 +50,12 @@ const PdfPart = (p: PdfPartProps) => {
           size="A4"
           style={{
             backgroundColor: "white",
+            paddingTop: 35,
+            paddingBottom: 65,
+            paddingHorizontal: 35,
           }}
         >
-          {mdTree.children.map((node, idx) => {
-            return <MdNodeRender key={idx} node={node} />
-          })}
+          <Html>{htmlFromMd}</Html>
         </Page>
       </Document>
     </PDFViewer>

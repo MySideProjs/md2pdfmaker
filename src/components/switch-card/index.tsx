@@ -10,7 +10,7 @@ export const SwitchCard = (p: SwitchCardProps) => {
         <div className={`rounded-l-3xl border-r-0.5 ${commonCls}`} onClick={p.onChooseFileClick}>
           Choose File
         </div>
-        <div className={`rounded-r-3xl border-l-0.5 ${commonCls}`} onClick={p.onChooseFileClick}>
+        <div className={`rounded-r-3xl border-l-0.5 ${commonCls}`} onClick={p.onEditNowClick}>
           Edit now
         </div>
       </div>

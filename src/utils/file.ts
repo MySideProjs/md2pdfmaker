@@ -3,8 +3,9 @@ export const loadMarkdownFile = (onFileGot: (file: Blob) => void) => {
   input.type = "file"
   input.accept = ".md"
   input.click()
-  input.addEventListener("change", () => {
-    const file = new Blob()
-    onFileGot(file as Blob)
+  input.addEventListener("change", (e) => {
+    const target = e.target as HTMLInputElement
+    const selectedFile: File = (target.files as FileList)[0]
+    onFileGot(selectedFile)
   })
 }
