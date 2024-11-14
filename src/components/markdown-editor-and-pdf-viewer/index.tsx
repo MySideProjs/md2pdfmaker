@@ -21,8 +21,8 @@ export const MarkdownEditorAndPdfViewer = (p: MarkdownEditorAndPdfViewerProps) =
 
   return (
     <div className="flex flex-row">
-      <Editor className="flex-1 h-screen overflow-scroll" onChange={(c) => setMdContent(c || "")} value={mdContent} />
-      <PdfPart className="flex-1 h-screen" markdown={mdContent} />
+      <Editor width={"60vw"} className="flex-1 h-80vh" onChange={(c) => setMdContent(c || "")} value={mdContent} />
+      <PdfPart className="flex-1 h-80vh" markdown={mdContent} />
     </div>
   )
 }
