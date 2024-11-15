@@ -12,7 +12,7 @@ export const markdown2html = (md: string) => {
     .use(rehypeStringify)
     .processSync(md)
     .value.toString()
-    .replaceAll("&#x26;", "&")
+    // .replaceAll("&#x26;", "&")
   // This is like an patch to handle the remarkRehype plugin's problem
 
   return processed
