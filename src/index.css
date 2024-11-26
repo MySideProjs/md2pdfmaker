@@ -360,3 +360,12 @@ template {
 [hidden] {
   display: none;
 }
+
+/**
+   * Print related
+   */
+@media print {
+  .no-print {
+      display: none;
+  }
+}

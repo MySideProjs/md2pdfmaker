@@ -3,13 +3,12 @@ import { useRef } from "react"
 import Markdown from "react-markdown"
 import { useMarkdownContent } from "../../state"
 
-export type MarkdownEditorAndPdfViewerProps = {}
-export const MarkdownEditorAndPdfViewer = (p: MarkdownEditorAndPdfViewerProps) => {
+export const MarkdownEditorAndPdfViewer = () => {
   const { mdContent, setMdContent } = useMarkdownContent()
   const commonBorder = "border-b-black border-0.5 border-solid"
   return (
     <div className="flex flex-row">
-      <div className={`${commonBorder}`}>
+      <div className={`${commonBorder} no-print`}>
         <Editor width={"50vw"} className="h-80vh" onChange={(c) => setMdContent(c || "")} value={mdContent} />
       </div>
       <div className={`${commonBorder}`}>
@@ -27,7 +26,7 @@ const PdfPart = (p: PdfPartProps) => {
   const pdfViewDiv = useRef<HTMLDivElement>(null)
 
   return (
-    <div className="flex flex-col">
+    <div id="md-preview" className="flex flex-col">
       <div ref={pdfViewDiv}>
         <Markdown className={p.className}>{p.markdown}</Markdown>
       </div>
