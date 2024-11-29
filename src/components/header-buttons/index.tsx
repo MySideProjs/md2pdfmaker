@@ -3,6 +3,7 @@ import { useMarkdownContent, useStylesConf } from "../../state"
 import iconDownload from "./download.svg"
 import folderOpen from "./folder_open.svg"
 import iconPalette from "./palette.svg"
+import printJs from "print-js"
 
 export const HeaderButtons = () => {
   const { loadFileAndOverwriteMarkdownContent } = useMarkdownContent()
@@ -13,7 +14,12 @@ export const HeaderButtons = () => {
     <div className="flex flex-row w-full items-center justify-center">
       {/* buttons */}
       <div className="flex flex-row">
-        <div className={`rounded-l-xl border-r-0.5 ${commonCls}`} onClick={printIt}>
+        <div
+          className={`rounded-l-xl border-r-0.5 ${commonCls}`}
+          onClick={() => {
+            printJs("md-preview", "html")
+          }}
+        >
           <img src={iconDownload} />
         </div>
         <div className={`${commonCls}`} onClick={loadFileAndOverwriteMarkdownContent}>
@@ -44,20 +50,4 @@ export const HeaderButtons = () => {
       </Modal>
     </div>
   )
-}
-
-const printIt = () => {
-  let candidateTitle = ""
-  const mdPreview = document.getElementById("md-preview")!
-  console.log(mdPreview)
-  const h1 = mdPreview.querySelector("h1")
-  if (h1) {
-    candidateTitle = h1.innerText
-    const currentTitle = document.title
-    document.title = candidateTitle
-    window.requestAnimationFrame(() => {
-      document.title = currentTitle
-    })
-  }
-  window.print()
 }

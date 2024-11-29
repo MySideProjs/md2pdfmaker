@@ -1,26 +1,46 @@
 import { atom, useAtom } from "jotai"
-import { loadMarkdownFile } from "../utils/file"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useEffectOnce } from "react-use"
-import { loadMdContentFromStore, saveMdContent2Store } from "../store"
+import { loadMdContentFromStore, loadStylesFromStore, saveMdContent2Store, saveStyles2Store } from "../store"
+import { loadMarkdownFile } from "../utils/file"
 
 /* -------------------------------------------------------------------------- */
 /*                                   Styles                                   */
 /* -------------------------------------------------------------------------- */
-type PdfStyles = {
+export type PdfStyles = {
   frame: {
-    left: string
+    padding: number
   }
 }
 
-const pdfStylesAtom = atom<PdfStyles>()
+const defaultStyles: PdfStyles = {
+  frame: {
+    padding: 10,
+  },
+}
+const pdfStylesAtom = atom<PdfStyles>(loadStylesFromStore() ?? defaultStyles)
 export const useStylesConf = () => {
-  const [styles] = useAtom(pdfStylesAtom)
+  const [styles, setStyles] = useAtom<PdfStyles>(pdfStylesAtom)
+
+  useEffect(() => {
+    saveStyles2Store(styles)
+  }, [styles])
+
   const [isStyleConfModalOpen, setIsStyleConfModalOpen] = useState(false)
   const openStylesConfModal = () => setIsStyleConfModalOpen(true)
   const closeStylesConfModal = () => setIsStyleConfModalOpen(false)
+
+  /* -------------------------------------------------------------------------- */
+  /*                               Style Modifier                               */
+  /* -------------------------------------------------------------------------- */
+  const changePadding = (padding: number) => {
+    styles.frame.padding = padding
+    setStyles(styles)
+  }
+
   return {
     styles,
+    changePadding,
     isStyleConfModalOpen,
     openStylesConfModal,
     closeStylesConfModal,
