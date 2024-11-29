@@ -1,6 +1,5 @@
 import Editor from "@monaco-editor/react"
 import Markdown from "react-markdown"
-import "./index.css"
 import { useMarkdownContent } from "../../state"
 
 export const MarkdownEditorAndPdfViewer = () => {
@@ -26,7 +25,7 @@ const PdfPart = (p: PdfPartProps) => {
   return (
     <div className={`flex flex-col ${p.className}`}>
       <div id="md-preview">
-        <Markdown>{p.markdown}</Markdown>
+        <Markdown className="p-10">{p.markdown}</Markdown>
       </div>
     </div>
   )

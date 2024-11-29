@@ -4,6 +4,7 @@ import iconDownload from "./download.svg"
 import folderOpen from "./folder_open.svg"
 import iconPalette from "./palette.svg"
 import printJs from "print-js"
+import { Editor } from "@monaco-editor/react"
 
 export const HeaderButtons = () => {
   const { loadFileAndOverwriteMarkdownContent } = useMarkdownContent()
@@ -38,15 +39,7 @@ export const HeaderButtons = () => {
           content: { inset: 200, backgroundColor: "#E5E1DA" },
         }}
       >
-        <label>
-          Margins(px)
-          <input
-            type="number"
-            onChange={(e) => {
-              console.log(e.target.value)
-            }}
-          ></input>
-        </label>
+        <Editor language="css" />
       </Modal>
     </div>
   )
