@@ -36,7 +36,7 @@ export const HeaderButtons = () => {
         isOpen={isStyleConfModalOpen}
         onRequestClose={closeStylesConfModal}
         style={{
-          content: { inset: 200, backgroundColor: "#E5E1DA" },
+          content: { inset: 200 },
         }}
       >
         <Editor language="css" />
