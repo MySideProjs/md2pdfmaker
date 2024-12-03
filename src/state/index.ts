@@ -1,46 +1,45 @@
 import { atom, useAtom } from "jotai"
-import { useEffect, useState } from "react"
+import { CSSProperties, useEffect, useState } from "react"
 import { useEffectOnce } from "react-use"
 import { loadMdContentFromStore, loadStylesFromStore, saveMdContent2Store, saveStyles2Store } from "../store"
 import { loadMarkdownFile } from "../utils/file"
 
 /* -------------------------------------------------------------------------- */
-/*                                   Styles                                   */
+/*                               PDF Style Modifier                           */
 /* -------------------------------------------------------------------------- */
-export type PdfStyles = {
-  frame: {
-    padding: number
-  }
-}
 
-const defaultStyles: PdfStyles = {
-  frame: {
-    padding: 10,
-  },
+export type MdStyles = {
+  h1?: CSSProperties
+  h2?: CSSProperties
+  h3?: CSSProperties
+  h4?: CSSProperties
+  h5?: CSSProperties
+  overall?: CSSProperties
 }
-const pdfStylesAtom = atom<PdfStyles>(loadStylesFromStore() ?? defaultStyles)
+const pdfStylesAtom = atom<MdStyles>(loadStylesFromStore() ?? {})
+
 export const useStylesConf = () => {
-  const [styles, setStyles] = useAtom<PdfStyles>(pdfStylesAtom)
+  const [mdStyles, setMdStyles] = useAtom(pdfStylesAtom)
 
   useEffect(() => {
-    saveStyles2Store(styles)
-  }, [styles])
+    saveStyles2Store(mdStyles)
+  }, [mdStyles])
+
+  const styleModifier = {
+    changeOverallFontFamily: (fontFamily: string) =>
+      setMdStyles({
+        ...mdStyles,
+        overall: { ...mdStyles.overall, fontFamily },
+      }),
+  }
 
   const [isStyleConfModalOpen, setIsStyleConfModalOpen] = useState(false)
   const openStylesConfModal = () => setIsStyleConfModalOpen(true)
   const closeStylesConfModal = () => setIsStyleConfModalOpen(false)
 
-  /* -------------------------------------------------------------------------- */
-  /*                               Style Modifier                               */
-  /* -------------------------------------------------------------------------- */
-  const changePadding = (padding: number) => {
-    styles.frame.padding = padding
-    setStyles(styles)
-  }
-
   return {
-    styles,
-    changePadding,
+    mdStyles,
+    styleModifier,
     isStyleConfModalOpen,
     openStylesConfModal,
     closeStylesConfModal,
@@ -72,7 +71,7 @@ export const useMarkdownContent = () => {
 
   return {
     mdContent,
-    setMdContent: saveMd2StateAndStore,
+    saveMd2StateAndStore,
     loadFileAndOverwriteMarkdownContent,
   }
 }

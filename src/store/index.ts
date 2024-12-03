@@ -1,5 +1,5 @@
 import store from "store"
-import { PdfStyles } from "../state"
+import { MdStyles } from "../state"
 
 const mdContentKey = "md"
 export const saveMdContent2Store = (content: string) => {
@@ -9,10 +9,10 @@ export const loadMdContentFromStore = (): string => {
   return store.get(mdContentKey)
 }
 
-const stylesKey = "styles"
-export const saveStyles2Store = (styles: PdfStyles) => {
-  store.set(stylesKey, styles)
+const stylesKey = "md-styles"
+export const saveStyles2Store = (css: MdStyles) => {
+  store.set(stylesKey, css)
 }
-export const loadStylesFromStore = (): PdfStyles => {
+export const loadStylesFromStore = (): MdStyles => {
   return store.get(stylesKey)
 }

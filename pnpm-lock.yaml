@@ -14,12 +14,6 @@ importers:
       '@react-pdf/renderer':
         specifier: ^4.0.0
         version: 4.0.0(react@18.3.1)
-      '@types/react-modal':
-        specifier: ^3.16.3
-        version: 3.16.3
-      '@types/store':
-        specifier: ^2.0.5
-        version: 2.0.5
       html2pdf.js:
         specifier: ^0.10.2
         version: 0.10.2
@@ -84,6 +78,12 @@ importers:
       '@types/react-dom':
         specifier: ^18.3.1
         version: 18.3.1
+      '@types/react-modal':
+        specifier: ^3.16.3
+        version: 3.16.3
+      '@types/store':
+        specifier: ^2.0.5
+        version: 2.0.5
       '@vitejs/plugin-react':
         specifier: ^4.3.3
         version: 4.3.3(vite@5.4.10(@types/node@22.9.0))

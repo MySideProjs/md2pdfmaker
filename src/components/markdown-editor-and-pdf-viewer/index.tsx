@@ -1,14 +1,14 @@
 import Editor from "@monaco-editor/react"
 import Markdown from "react-markdown"
-import { useMarkdownContent } from "../../state"
+import { useMarkdownContent, useStylesConf } from "../../state"
 
 export const MarkdownEditorAndPdfViewer = () => {
-  const { mdContent, setMdContent } = useMarkdownContent()
+  const { mdContent, saveMd2StateAndStore } = useMarkdownContent()
   const commonBorder = "border-b-black border-0.5 border-solid"
   return (
     <div className="flex flex-row">
       <div className={`${commonBorder} no-print`}>
-        <Editor width={"50vw"} className="h-80vh" onChange={(c) => setMdContent(c || "")} value={mdContent} />
+        <Editor width={"50vw"} className="h-80vh" onChange={(c) => saveMd2StateAndStore(c || "")} value={mdContent} />
       </div>
       <div>
         <PdfPart className="h-80vh w-50vw overflow-scroll" markdown={mdContent} />
@@ -22,10 +22,21 @@ type PdfPartProps = {
   className?: string
 }
 const PdfPart = (p: PdfPartProps) => {
+  const { mdStyles } = useStylesConf()
   return (
-    <div className={`flex flex-col ${p.className}`}>
-      <div id="md-preview">
-        <Markdown className="p-10">{p.markdown}</Markdown>
+    <div className={`flex flex-col p-10 ${p.className}`}>
+      <div id="md-preview" style={mdStyles.overall}>
+        <Markdown
+          components={{
+            h1: (p) => <h1 {...p} />,
+            h2: (p) => <h1 {...p} />,
+            h3: (p) => <h1 {...p} />,
+            h4: (p) => <h1 {...p} />,
+            h5: (p) => <h1 {...p} />,
+          }}
+        >
+          {p.markdown}
+        </Markdown>
       </div>
     </div>
   )
