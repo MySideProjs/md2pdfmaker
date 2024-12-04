@@ -1,13 +1,13 @@
-import printJs from "print-js"
+import html2pdf from "html2pdf.js"
+import Modal from "react-modal"
 import { useMarkdownContent, useStylesConf } from "../../state"
 import iconDownload from "./download.svg"
 import folderOpen from "./folder_open.svg"
 import iconPalette from "./palette.svg"
-import Modal from "react-modal"
 
 export const HeaderButtons = () => {
   const { loadFileAndOverwriteMarkdownContent } = useMarkdownContent()
-  const { styleModifier, openStylesConfModal, closeStylesConfModal, isStyleConfModalOpen } = useStylesConf()
+  const { mdStyles, styleModifier, openStylesConfModal, closeStylesConfModal, isStyleConfModalOpen } = useStylesConf()
 
   const commonCls = "h-12 w-12 flex items-center justify-center border-1 border-solid border-gray cursor-pointer hover:bg-slate-200 active:bg-slate"
   return (
@@ -17,7 +17,10 @@ export const HeaderButtons = () => {
         <div
           className={`rounded-l-xl border-r-0.5 ${commonCls}`}
           onClick={() => {
-            printJs("md-preview", "html")
+            const element = document.getElementById("md-preview")
+            const worker = html2pdf()
+            worker.set({ pagebreak: { mode: "avoid-all" } })
+            worker.from(element).toPdf().save()
           }}
         >
           <img src={iconDownload} />
@@ -51,6 +54,7 @@ export const HeaderButtons = () => {
           <div>
             <label className="mr-2">Font Family:</label>
             <select
+              value={mdStyles.overall?.fontFamily}
               onChange={(e) => {
                 console.log(e.target.value)
                 styleModifier.changeOverallFontFamily(e.target.value)
@@ -65,7 +69,13 @@ export const HeaderButtons = () => {
             </select>
           </div>
 
-          {/* ------------- Font Family ------------- */}
+          <div className="m-2" />
+
+          {/* ------------- Padding ------------- */}
+          <div>
+            <label className="mr-2">Padding:</label>
+            <input type="number" value={mdStyles.overall?.padding} onChange={(e) => styleModifier.changeOverallPadding(parseInt(e.target.value))} />
+          </div>
         </section>
       </Modal>
     </div>

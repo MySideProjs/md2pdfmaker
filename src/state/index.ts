@@ -16,7 +16,14 @@ export type MdStyles = {
   h5?: CSSProperties
   overall?: CSSProperties
 }
-const pdfStylesAtom = atom<MdStyles>(loadStylesFromStore() ?? {})
+
+const defaultMdStyles: MdStyles = {
+  overall: {
+    fontFamily: "Arial",
+    padding: 50,
+  },
+}
+const pdfStylesAtom = atom<MdStyles>(loadStylesFromStore() ?? defaultMdStyles)
 
 export const useStylesConf = () => {
   const [mdStyles, setMdStyles] = useAtom(pdfStylesAtom)
@@ -31,6 +38,13 @@ export const useStylesConf = () => {
         ...mdStyles,
         overall: { ...mdStyles.overall, fontFamily },
       }),
+
+    changeOverallPadding: (padding: number) => {
+      setMdStyles({
+        ...mdStyles,
+        overall: { ...mdStyles.overall, padding },
+      })
+    },
   }
 
   const [isStyleConfModalOpen, setIsStyleConfModalOpen] = useState(false)
