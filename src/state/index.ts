@@ -3,18 +3,20 @@ import { CSSProperties, useEffect, useState } from "react"
 import { useEffectOnce } from "react-use"
 import { loadMdContentFromStore, loadStylesFromStore, saveMdContent2Store, saveStyles2Store } from "../store"
 import { loadMarkdownFile } from "../utils/file"
+import { uniq } from "lodash"
 
 /* -------------------------------------------------------------------------- */
 /*                                  Font Options                              */
 /* -------------------------------------------------------------------------- */
 const defaultFonts = ["Arial", "Courier", "Georgia", "Times", "Trebuchet", "Verdana"]
+const fontOptionsAtom = atom(defaultFonts)
 export const useFontsOptions = () => {
-  const [fontsOptions, setFontsOptions] = useState(defaultFonts)
+  const [fontsOptions, setFontsOptions] = useAtom(fontOptionsAtom)
   const requestUserPermissionToFetchFonts = async () => {
     window
       .queryLocalFonts()
       .then((fontDataList) => {
-        const fontFamilies = fontDataList.map((fd) => fd.family)
+        const fontFamilies = uniq(fontDataList.map((fd) => fd.family))
         setFontsOptions(fontFamilies)
       })
       .catch((e) => {
@@ -47,7 +49,9 @@ export type MdStyles = {
 
 const defaultMdStyles: MdStyles = {
   overall: {
+    color: "#000000",
     fontFamily: "Arial",
+    backgroundColor: "#ffffff",
   },
   h1: {
     fontFamily: "Arial",
@@ -63,6 +67,13 @@ export const useStylesConf = () => {
   const [mdStyles, setMdStyles] = useAtom(pdfStylesAtom)
 
   useEffect(() => {
+    const printPageStyle = document.getElementById("print-page-style")
+    if (printPageStyle) {
+      printPageStyle.innerHTML = `@page {background-color: ${mdStyles.overall?.backgroundColor}}`
+    }
+  }, [mdStyles.overall?.backgroundColor])
+
+  useEffect(() => {
     saveStyles2Store(mdStyles)
   }, [mdStyles])
 
@@ -76,10 +87,16 @@ export const useStylesConf = () => {
         ...mdStyles,
         overall: { ...mdStyles.overall, fontFamily },
       }),
-    changeOverallLineHeight: (lineHeight: number) => {
+    changeOverallFontColor: (color: string) => {
       setMdStyles({
         ...mdStyles,
-        overall: { ...mdStyles.overall, lineHeight: `${lineHeight}px` },
+        overall: { ...mdStyles.overall, color },
+      })
+    },
+    changeOverallBgColor: (backgroundColor: string) => {
+      setMdStyles({
+        ...mdStyles,
+        overall: { ...mdStyles.overall, backgroundColor },
       })
     },
   }

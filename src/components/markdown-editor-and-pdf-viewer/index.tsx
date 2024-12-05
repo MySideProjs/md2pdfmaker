@@ -23,8 +23,14 @@ type PdfPartProps = {
 }
 const PdfPart = (p: PdfPartProps) => {
   const { mdStyles } = useStylesConf()
+
   return (
-    <div className={`flex flex-col ${p.className} p-10`}>
+    <div
+      className={`flex flex-col ${p.className} p-10`}
+      style={{
+        backgroundColor: mdStyles.overall?.backgroundColor,
+      }}
+    >
       <div id="md-preview" style={mdStyles.overall}>
         <Markdown>{p.markdown}</Markdown>
       </div>

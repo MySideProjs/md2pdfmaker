@@ -42,7 +42,7 @@ export const HeaderButtons = () => {
             <h1 className="text-lg">Overall</h1>
           </header>
 
-          {/* ------------- Font Family ------------- */}
+          {/* ------------- Font ------------- */}
           <div className="mt-2">
             <label className="mr-2">Font Family:</label>
             <select value={mdStyles.overall?.fontFamily} onChange={(e) => styleModifier.changeOverallFontFamily(e.target.value)}>
@@ -50,17 +50,24 @@ export const HeaderButtons = () => {
                 <option key={f}>{f}</option>
               ))}
             </select>
-            <button onClick={requestUserPermissionToFetchFonts}>load system fonts</button>
           </div>
 
           <div className="mt-2">
-            <label className="mr-2">Line height:</label>
-            <input type="number" onChange={(e) => styleModifier.changeOverallLineHeight(parseInt(e.target.value))} />
+            <label className="mr-2">Font Color:</label>
+            <input type="color" value={mdStyles.overall?.color} onChange={(e) => styleModifier.changeOverallFontColor(e.target.value)} />
+          </div>
+
+          {/* ------------- Bg ------------- */}
+          <div className="mt-2">
+            <label className="mr-2">Background Color:</label>
+            <input type="color" value={mdStyles.overall?.backgroundColor} onChange={(e) => styleModifier.changeOverallBgColor(e.target.value)} />
           </div>
         </section>
 
-        <div className="absolute right-6 bottom-6">
+        <div className="absolute right-6 bottom-6 flex">
           <button onClick={styleModifier.reset}>Reset</button>
+          <div className="m-1" />
+          <button onClick={requestUserPermissionToFetchFonts}>Load System Fonts</button>
         </div>
       </Modal>
     </div>
