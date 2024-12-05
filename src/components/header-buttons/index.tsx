@@ -1,4 +1,3 @@
-import html2pdf from "html2pdf.js"
 import Modal from "react-modal"
 import { useMarkdownContent, useStylesConf } from "../../state"
 import iconDownload from "./download.svg"
@@ -14,15 +13,7 @@ export const HeaderButtons = () => {
     <div className="flex flex-row w-full items-center justify-center">
       {/* buttons */}
       <div className="flex flex-row">
-        <div
-          className={`rounded-l-xl border-r-0.5 ${commonCls}`}
-          onClick={() => {
-            const element = document.getElementById("md-preview")
-            const worker = html2pdf()
-            worker.set({ pagebreak: { mode: "avoid-all" } })
-            worker.from(element).toPdf().save()
-          }}
-        >
+        <div className={`rounded-l-xl border-r-0.5 ${commonCls}`} onClick={() => window.print()}>
           <img src={iconDownload} />
         </div>
         <div className={`${commonCls}`} onClick={loadFileAndOverwriteMarkdownContent}>

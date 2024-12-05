@@ -1,0 +1,12 @@
+/* for print markdown preview part */
+@media print {
+  body {
+    visibility: hidden;
+  }
+  #md-preview {
+    visibility: visible;
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+}
