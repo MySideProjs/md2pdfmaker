@@ -1,9 +1,9 @@
 import { atom, useAtom } from "jotai"
-import { CSSProperties, useEffect, useState } from "react"
+import { uniq } from "lodash"
+import { CSSProperties, useEffect } from "react"
 import { useEffectOnce } from "react-use"
 import { loadMdContentFromStore, loadStylesFromStore, saveMdContent2Store, saveStyles2Store } from "../store"
 import { loadMarkdownFile } from "../utils/file"
-import { uniq } from "lodash"
 
 /* -------------------------------------------------------------------------- */
 /*                                  Font Options                              */
@@ -61,10 +61,11 @@ const defaultMdStyles: MdStyles = {
   h4: {},
   h5: {},
 }
-const pdfStylesAtom = atom<MdStyles>(loadStylesFromStore() ?? defaultMdStyles)
-
+const stylesConfAtom = atom(loadStylesFromStore() ?? defaultMdStyles)
+const styleConfModalOpenStatusAtom = atom(false)
 export const useStylesConf = () => {
-  const [mdStyles, setMdStyles] = useAtom(pdfStylesAtom)
+  const [mdStyles, setMdStyles] = useAtom(stylesConfAtom)
+  const [isStyleConfModalOpen, setIsStyleConfModalOpen] = useAtom(styleConfModalOpenStatusAtom)
 
   useEffect(() => {
     const printPageStyle = document.getElementById("print-page-style")
@@ -101,8 +102,9 @@ export const useStylesConf = () => {
     },
   }
 
-  const [isStyleConfModalOpen, setIsStyleConfModalOpen] = useState(false)
-  const openStylesConfModal = () => setIsStyleConfModalOpen(true)
+  const openStylesConfModal = () => {
+    setIsStyleConfModalOpen(true)
+  }
   const closeStylesConfModal = () => setIsStyleConfModalOpen(false)
 
   return {
