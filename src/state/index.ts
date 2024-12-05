@@ -5,6 +5,34 @@ import { loadMdContentFromStore, loadStylesFromStore, saveMdContent2Store, saveS
 import { loadMarkdownFile } from "../utils/file"
 
 /* -------------------------------------------------------------------------- */
+/*                                  Font Options                              */
+/* -------------------------------------------------------------------------- */
+const defaultFonts = ["Arial", "Courier", "Georgia", "Times", "Trebuchet", "Verdana"]
+export const useFontsOptions = () => {
+  const [fontsOptions, setFontsOptions] = useState(defaultFonts)
+  const requestUserPermissionToFetchFonts = async () => {
+    window
+      .queryLocalFonts()
+      .then((fontDataList) => {
+        const fontFamilies = fontDataList.map((fd) => fd.family)
+        setFontsOptions(fontFamilies)
+      })
+      .catch((e) => {
+        console.error("Automatically load fonts failed due to: ", e)
+      })
+  }
+
+  useEffectOnce(() => {
+    requestUserPermissionToFetchFonts()
+  })
+
+  return {
+    fontsOptions,
+    requestUserPermissionToFetchFonts,
+  }
+}
+
+/* -------------------------------------------------------------------------- */
 /*                               PDF Style Modifier                           */
 /* -------------------------------------------------------------------------- */
 
@@ -20,8 +48,14 @@ export type MdStyles = {
 const defaultMdStyles: MdStyles = {
   overall: {
     fontFamily: "Arial",
-    padding: 50,
   },
+  h1: {
+    fontFamily: "Arial",
+  },
+  h2: {},
+  h3: {},
+  h4: {},
+  h5: {},
 }
 const pdfStylesAtom = atom<MdStyles>(loadStylesFromStore() ?? defaultMdStyles)
 
@@ -32,17 +66,20 @@ export const useStylesConf = () => {
     saveStyles2Store(mdStyles)
   }, [mdStyles])
 
+  // Add style modifiers here
   const styleModifier = {
+    reset: () => {
+      setMdStyles(defaultMdStyles)
+    },
     changeOverallFontFamily: (fontFamily: string) =>
       setMdStyles({
         ...mdStyles,
         overall: { ...mdStyles.overall, fontFamily },
       }),
-
-    changeOverallPadding: (padding: number) => {
+    changeOverallLineHeight: (lineHeight: number) => {
       setMdStyles({
         ...mdStyles,
-        overall: { ...mdStyles.overall, padding },
+        overall: { ...mdStyles.overall, lineHeight: `${lineHeight}px` },
       })
     },
   }

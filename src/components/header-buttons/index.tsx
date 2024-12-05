@@ -1,5 +1,5 @@
 import Modal from "react-modal"
-import { useMarkdownContent, useStylesConf } from "../../state"
+import { useFontsOptions, useMarkdownContent, useStylesConf } from "../../state"
 import iconDownload from "./download.svg"
 import folderOpen from "./folder_open.svg"
 import iconPalette from "./palette.svg"
@@ -7,6 +7,7 @@ import iconPalette from "./palette.svg"
 export const HeaderButtons = () => {
   const { loadFileAndOverwriteMarkdownContent } = useMarkdownContent()
   const { mdStyles, styleModifier, openStylesConfModal, closeStylesConfModal, isStyleConfModalOpen } = useStylesConf()
+  const { fontsOptions, requestUserPermissionToFetchFonts } = useFontsOptions()
 
   const commonCls = "h-12 w-12 flex items-center justify-center border-1 border-solid border-gray cursor-pointer hover:bg-slate-200 active:bg-slate"
   return (
@@ -42,32 +43,25 @@ export const HeaderButtons = () => {
           </header>
 
           {/* ------------- Font Family ------------- */}
-          <div>
+          <div className="mt-2">
             <label className="mr-2">Font Family:</label>
-            <select
-              value={mdStyles.overall?.fontFamily}
-              onChange={(e) => {
-                console.log(e.target.value)
-                styleModifier.changeOverallFontFamily(e.target.value)
-              }}
-            >
-              <option>Arial</option>
-              <option>Courier New</option>
-              <option>Georgia</option>
-              <option>Times New Roman</option>
-              <option>Trebuchet MS</option>
-              <option>Verdana</option>
+            <select value={mdStyles.overall?.fontFamily} onChange={(e) => styleModifier.changeOverallFontFamily(e.target.value)}>
+              {fontsOptions.map((f) => (
+                <option key={f}>{f}</option>
+              ))}
             </select>
+            <button onClick={requestUserPermissionToFetchFonts}>load system fonts</button>
           </div>
 
-          <div className="m-2" />
-
-          {/* ------------- Padding ------------- */}
-          <div>
-            <label className="mr-2">Padding:</label>
-            <input type="number" value={mdStyles.overall?.padding} onChange={(e) => styleModifier.changeOverallPadding(parseInt(e.target.value))} />
+          <div className="mt-2">
+            <label className="mr-2">Line height:</label>
+            <input type="number" onChange={(e) => styleModifier.changeOverallLineHeight(parseInt(e.target.value))} />
           </div>
         </section>
+
+        <div className="absolute right-6 bottom-6">
+          <button onClick={styleModifier.reset}>Reset</button>
+        </div>
       </Modal>
     </div>
   )
