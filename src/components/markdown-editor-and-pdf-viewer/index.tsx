@@ -8,10 +8,10 @@ export const MarkdownEditorAndPdfViewer = () => {
   return (
     <div className="flex flex-row">
       <div className={`${commonBorder} no-print`}>
-        <Editor width={"48vw"} className="h-80vh" onChange={(c) => saveMd2StateAndStore(c || "")} value={mdContent} />
+        <Editor width={"48vw"} className="h-74vh" onChange={(c) => saveMd2StateAndStore(c || "")} value={mdContent} />
       </div>
       <div>
-        <PdfPart className="max-h-80vh max-w-48vw overflow-scroll" markdown={mdContent} />
+        <PdfPart className="max-h-74vh max-w-48vw overflow-scroll" markdown={mdContent} />
       </div>
     </div>
   )
