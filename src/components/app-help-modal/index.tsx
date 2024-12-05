@@ -16,10 +16,14 @@ export const AppHelpModal = (p: AppHelpModalProps) => {
 }
 
 const readme = `
-## How to use it
+## How to use it?
 
 1. Open an markdown file or just start writing
 2. Edit Styles
 3. Save it as PDF
+
+## How to enable background color when print it?
+1. Chrome: Expand 'More Settings', Check Background graphics
+2. Safari: Not supported 
 
 `
