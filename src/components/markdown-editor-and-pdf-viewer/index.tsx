@@ -6,12 +6,12 @@ export const MarkdownEditorAndPdfViewer = () => {
   const { mdContent, saveMd2StateAndStore } = useMarkdownContent()
   const commonBorder = "border-b-black border-0.5 border-solid"
   return (
-    <div className="flex flex-row">
+    <div className="flex flex-row max-w-100vw">
       <div className={`${commonBorder} no-print`}>
         <Editor width={"48vw"} className="h-74vh" onChange={(c) => saveMd2StateAndStore(c || "")} value={mdContent} />
       </div>
       <div>
-        <PdfPart className="max-h-74vh max-w-48vw overflow-scroll" markdown={mdContent} />
+        <PdfPart className="h-74vh w-[calc(100%-80px)] overflow-scroll" markdown={mdContent} />
       </div>
     </div>
   )
@@ -26,7 +26,7 @@ const PdfPart = (p: PdfPartProps) => {
 
   return (
     <div
-      className={`flex flex-col ${p.className} p-10`}
+      className={`flex flex-col ${p.className} p-40px`}
       style={{
         backgroundColor: mdStyles.overall?.backgroundColor,
       }}
