@@ -30,7 +30,7 @@ export const MdPreviewStyleModal = () => {
         {/* ------------- Font ------------- */}
         <div className="mt-2">
           <label className="mr-2">Font Family:</label>
-          <select value={mdStyles.overall?.fontFamily} onChange={(e) => styleModifier.changeOverallFontFamily(e.target.value)}>
+          <select value={mdStyles.overall?.fontFamily} onChange={(e) => styleModifier.overall.changeOverallFontFamily(e.target.value)}>
             {fontsOptions.map((f) => (
               <option key={f}>{f}</option>
             ))}
@@ -39,13 +39,13 @@ export const MdPreviewStyleModal = () => {
 
         <div className="mt-2">
           <label className="mr-2">Font Color:</label>
-          <input type="color" value={mdStyles.overall?.color} onChange={(e) => styleModifier.changeOverallFontColor(e.target.value)} />
+          <input type="color" value={mdStyles.overall?.color} onChange={(e) => styleModifier.overall.changeOverallFontColor(e.target.value)} />
         </div>
 
         {/* ------------- Bg ------------- */}
         <div className="mt-2">
           <label className="mr-2">Background Color:</label>
-          <input type="color" value={mdStyles.overall?.backgroundColor} onChange={(e) => styleModifier.changeOverallBgColor(e.target.value)} />
+          <input type="color" value={mdStyles.overall?.backgroundColor} onChange={(e) => styleModifier.overall.changeOverallBgColor(e.target.value)} />
         </div>
       </section>
 

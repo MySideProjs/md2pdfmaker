@@ -78,29 +78,25 @@ export const useStylesConf = () => {
     saveStyles2Store(mdStyles)
   }, [mdStyles])
 
-  // Add style modifiers here
+  /* * * * * * * * * * * * * *  // Add style modifiers below * * * * * * * * * * * * * * */
+  const changeOverallStyle = (extra: CSSProperties) => {
+    console.debug("changeOverallStyle", extra)
+    setMdStyles({
+      ...mdStyles,
+      overall: { ...mdStyles.overall, ...extra },
+    })
+  }
   const styleModifier = {
     reset: () => {
       setMdStyles(defaultMdStyles)
     },
-    changeOverallFontFamily: (fontFamily: string) =>
-      setMdStyles({
-        ...mdStyles,
-        overall: { ...mdStyles.overall, fontFamily },
-      }),
-    changeOverallFontColor: (color: string) => {
-      setMdStyles({
-        ...mdStyles,
-        overall: { ...mdStyles.overall, color },
-      })
-    },
-    changeOverallBgColor: (backgroundColor: string) => {
-      setMdStyles({
-        ...mdStyles,
-        overall: { ...mdStyles.overall, backgroundColor },
-      })
+    overall: {
+      changeOverallFontFamily: (fontFamily: string) => changeOverallStyle({ fontFamily }),
+      changeOverallFontColor: (color: string) => changeOverallStyle({ color }),
+      changeOverallBgColor: (backgroundColor: string) => changeOverallStyle({ backgroundColor }),
     },
   }
+  /* * * * * * * * * * * * * *  // Add style modifiers above * * * * * * * * * * * * * * */
 
   const openStylesConfModal = () => {
     setIsStyleConfModalOpen(true)
