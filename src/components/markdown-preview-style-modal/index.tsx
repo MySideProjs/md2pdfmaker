@@ -4,7 +4,13 @@ import { useFontsOptions, useStylesConf } from "../../state"
 export const MdPreviewStyleModal = () => {
   const { mdStyles, styleModifier, closeStylesConfModal, isStyleConfModalOpen } = useStylesConf()
   const { fontsOptions, requestUserPermissionToFetchFonts } = useFontsOptions()
-
+  const onClickLoadLocalFonts = () => {
+    if (window.queryLocalFonts == undefined) {
+      alert("Sorry, seems current browser does not support loading local fonts, try Chrome please!")
+    } else {
+      requestUserPermissionToFetchFonts()
+    }
+  }
   return (
     <Modal
       isOpen={isStyleConfModalOpen}
@@ -46,7 +52,7 @@ export const MdPreviewStyleModal = () => {
       <div className="absolute right-6 bottom-6 flex">
         <button onClick={styleModifier.reset}>Reset</button>
         <div className="m-1" />
-        <button onClick={requestUserPermissionToFetchFonts}>Load System Fonts</button>
+        <button onClick={onClickLoadLocalFonts}>Load System Fonts</button>
       </div>
     </Modal>
   )

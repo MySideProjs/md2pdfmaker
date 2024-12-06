@@ -22,8 +22,13 @@ const readme = `
 2. Edit Styles
 3. Save it as PDF
 
-## How to enable background color when print it?
-1. Chrome: Expand 'More Settings', Check Background graphics
-2. Safari: Not supported 
-
+**Compatibility**
+- Chrome & Edge: Suits the best
+- Firefox: Limited
+  - Not be able to custom margin color when print 
+  - Not be able to load local fonts
+- Safari: Limited
+  - Not be able to custom margin color & size print 
+  - Not be able to load local fonts
+  
 `
