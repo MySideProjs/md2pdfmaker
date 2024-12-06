@@ -32,7 +32,17 @@ const PdfPart = (p: PdfPartProps) => {
       }}
     >
       <div id="md-preview" style={mdStyles.overall}>
-        <Markdown>{p.markdown}</Markdown>
+        <Markdown
+          components={{
+            h1: (p) => <h1 {...p} style={mdStyles.h1} />,
+            h2: (p) => <h2 {...p} style={mdStyles.h2} />,
+            h3: (p) => <h3 {...p} style={mdStyles.h3} />,
+            h4: (p) => <h4 {...p} style={mdStyles.h4} />,
+            h5: (p) => <h5 {...p} style={mdStyles.h5} />,
+          }}
+        >
+          {p.markdown}
+        </Markdown>
       </div>
     </div>
   )

@@ -1,5 +1,6 @@
 import Modal from "react-modal"
 import { useFontsOptions, useStylesConf } from "../../state"
+import { PresetsSelector } from "../markdown-preview-style-presets"
 
 export const MdPreviewStyleModal = () => {
   const { mdStyles, styleModifier, closeStylesConfModal, isStyleConfModalOpen } = useStylesConf()
@@ -53,6 +54,10 @@ export const MdPreviewStyleModal = () => {
         <button onClick={styleModifier.reset}>Reset</button>
         <div className="m-1" />
         <button onClick={onClickLoadLocalFonts}>Load System Fonts</button>
+      </div>
+
+      <div className="absolute right-6 top-6 flex">
+        <PresetsSelector />
       </div>
     </Modal>
   )

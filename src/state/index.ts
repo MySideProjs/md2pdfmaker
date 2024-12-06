@@ -4,11 +4,12 @@ import { CSSProperties, useEffect } from "react"
 import { useEffectOnce } from "react-use"
 import { loadMdContentFromStore, loadStylesFromStore, saveMdContent2Store, saveStyles2Store } from "../store"
 import { loadMarkdownFile } from "../utils/file"
+import { presets, PresetsNames } from "../components/markdown-preview-style-presets/presets"
 
 /* -------------------------------------------------------------------------- */
 /*                                  Font Options                              */
 /* -------------------------------------------------------------------------- */
-const defaultFonts = ["Arial", "Courier", "Georgia", "Times", "Trebuchet", "Verdana"]
+const defaultFonts = ["Arial", "Courier", "Georgia", "Times", "Trebuchet", "Verdana", "monospace", "Optima", "Impact"]
 const fontOptionsAtom = atom(defaultFonts)
 export const useFontsOptions = () => {
   const [fontsOptions, setFontsOptions] = useAtom(fontOptionsAtom)
@@ -16,7 +17,7 @@ export const useFontsOptions = () => {
     window
       .queryLocalFonts()
       .then((fontDataList) => {
-        const fontFamilies = uniq(fontDataList.map((fd) => fd.family))
+        const fontFamilies = uniq(fontDataList.map((fd) => fd.family).concat(defaultFonts))
         setFontsOptions(fontFamilies)
       })
       .catch((e) => {
@@ -47,21 +48,7 @@ export type MdStyles = {
   overall?: CSSProperties
 }
 
-const defaultMdStyles: MdStyles = {
-  overall: {
-    color: "#000000",
-    fontFamily: "Arial",
-    backgroundColor: "#ffffff",
-  },
-  h1: {
-    fontFamily: "Arial",
-  },
-  h2: {},
-  h3: {},
-  h4: {},
-  h5: {},
-}
-const stylesConfAtom = atom(loadStylesFromStore() ?? defaultMdStyles)
+const stylesConfAtom = atom(loadStylesFromStore() ?? presets["Default"])
 const styleConfModalOpenStatusAtom = atom(false)
 export const useStylesConf = () => {
   const [mdStyles, setMdStyles] = useAtom(stylesConfAtom)
@@ -88,7 +75,14 @@ export const useStylesConf = () => {
   }
   const styleModifier = {
     reset: () => {
-      setMdStyles(defaultMdStyles)
+      setMdStyles(presets["Default"])
+    },
+    changePresetTo: (presetName: PresetsNames) => {
+      const presetGot = presets[presetName]
+      console.log(presetGot)
+      if (presetGot !== undefined) {
+        setMdStyles(presetGot)
+      }
     },
     overall: {
       changeOverallFontFamily: (fontFamily: string) => changeOverallStyle({ fontFamily }),
