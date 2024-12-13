@@ -6,6 +6,7 @@ import iconDownload from "./download.svg"
 import folderOpen from "./folder_open.svg"
 import helpCenter from "./help_center.svg"
 import iconPalette from "./palette.svg"
+import iconRateReview from "./rate_review.svg"
 
 export const HeaderButtons = () => {
   const { loadFileAndOverwriteMarkdownContent } = useMarkdownContent()
@@ -13,6 +14,10 @@ export const HeaderButtons = () => {
   const [isHelpCenterModalOpen, toggleHelpCenterModal] = useToggle(false)
 
   const commonCls = "h-12 w-12 flex items-center justify-center border-0.5 border-solid border-gray cursor-pointer hover:bg-slate-200 active:bg-slate"
+  const openFeedbackForm = () => {
+    window.open("https://forms.gle/God6MvZ6imVXE5hs5")
+  }
+
   return (
     <div className="flex flex-row w-full items-center justify-center">
       {/* buttons */}
@@ -27,6 +32,10 @@ export const HeaderButtons = () => {
 
         <div className={`${commonCls}`} onClick={() => toggleHelpCenterModal(true)}>
           <img src={helpCenter} />
+        </div>
+
+        <div className={`${commonCls}`} onClick={() => openFeedbackForm()}>
+          <img src={iconRateReview} />
         </div>
 
         <div className={`rounded-r-xl border-l-0.5 ${commonCls}`} onClick={openStylesConfModal}>

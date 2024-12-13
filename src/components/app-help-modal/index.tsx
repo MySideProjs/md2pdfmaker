@@ -18,9 +18,9 @@ export const AppHelpModal = (p: AppHelpModalProps) => {
 const readme = `
 ## How to use it?
 
-1. Open an markdown file or just start writing
-2. Edit Styles
-3. Save it as PDF
+- Open an markdown file or just start writing
+- Edit Styles
+- Save it as PDF
 
 **Compatibility**
 - Chrome & Edge: Suits the best
