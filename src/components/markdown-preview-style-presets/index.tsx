@@ -1,6 +1,6 @@
 import { ChangeEvent } from "react"
 import { useStylesConf } from "../../state"
-import { presets, PresetsNames } from "./presets"
+import { presetsNames, PresetsNames } from "./presets"
 
 export const PresetsSelector = () => {
   const { styleModifier } = useStylesConf()
@@ -13,7 +13,7 @@ export const PresetsSelector = () => {
     <div>
       <label className="mr-2">Apply Style Preset:</label>
       <select onChange={onChange}>
-        {Object.keys(presets).map((k) => (
+        {presetsNames.map((k) => (
           <option key={k}>{k}</option>
         ))}
       </select>

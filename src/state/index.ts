@@ -4,7 +4,7 @@ import { CSSProperties, useEffect } from "react"
 import { useEffectOnce } from "react-use"
 import { loadMdContentFromStore, loadStylesFromStore, saveMdContent2Store, saveStyles2Store } from "../store"
 import { loadMarkdownFile } from "../utils/file"
-import { presets, PresetsNames } from "../components/markdown-preview-style-presets/presets"
+import { getPreset, PresetsNames } from "../components/markdown-preview-style-presets/presets"
 import { helpCenterMdContent } from "../components/app-help-modal"
 
 /* -------------------------------------------------------------------------- */
@@ -49,7 +49,7 @@ export type MdStyles = {
   overall?: CSSProperties
 }
 
-const stylesConfAtom = atom(loadStylesFromStore() ?? presets["Default"])
+const stylesConfAtom = atom(loadStylesFromStore() ?? getPreset("Default"))
 const styleConfModalOpenStatusAtom = atom(false)
 export const useStylesConf = () => {
   const [mdStyles, setMdStyles] = useAtom(stylesConfAtom)
@@ -70,10 +70,10 @@ export const useStylesConf = () => {
 
   const styleModifier = {
     reset: () => {
-      setMdStyles(presets["Default"])
+      setMdStyles(getPreset("Default"))
     },
     changePresetTo: (presetName: PresetsNames) => {
-      const presetGot = presets[presetName]
+      const presetGot = getPreset(presetName)
       console.log(presetGot)
       if (presetGot !== undefined) {
         setMdStyles(presetGot)
