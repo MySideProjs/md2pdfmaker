@@ -83,7 +83,7 @@ export const useStylesConf = () => {
       console.debug(`change ${styleGroup} style`, extra)
       mdStyles[styleGroup] = { ...mdStyles[styleGroup], ...extra }
       setMdStyles({ ...mdStyles })
-    }, 500),
+    }, 200),
   }
   /* * * * * * * * * * * * * *  // Add style modifiers above * * * * * * * * * * * * * * */
 

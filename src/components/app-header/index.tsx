@@ -1,15 +1,20 @@
 import { HeaderButtons } from "../header-buttons"
-
+import logo from "../../../public/logo.png"
 export const AppHeader = () => {
   return (
-    <div className="border-solid border-1 border-t-none border-gray shadow-md pt-6 pb-6 max-h-18vh">
-      <div className="flex flex-col items-center">
-        <h1 className="w-100vw flex items-center justify-center font-mono">MARKDOWN ➡️ PDF</h1>
-        <p>with easy custom styles</p>
+    <header className="ml-28 flex flex-row items-start justify-between">
+      <div className="m-8 flex items-center">
+        <img className="h-8 border-gray border-1 border-solid" src={logo} alt="logo" />
+        <div className="mr-4" />
+        <div>
+          <h1 className="font-mono text-xl">Markdown to PDF</h1>
+          <div className="mr-2" />
+          <span className="">with easy custom styles</span>
+        </div>
       </div>
-      <div className="absolute right-10 top-10 bg-white flex">
+      <div className="m-8 mr-36 bg-white flex">
         <HeaderButtons />
       </div>
-    </div>
+    </header>
   )
 }

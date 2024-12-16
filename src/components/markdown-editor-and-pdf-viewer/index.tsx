@@ -4,14 +4,16 @@ import { useMarkdownContent, useStylesConf } from "../../state"
 
 export const MarkdownEditorAndPdfViewer = () => {
   const { mdContent, saveMd2StateAndStore } = useMarkdownContent()
-  const commonBorder = "border-b-black border-0.5 border-solid"
+  const commonFrame = `shadow-xl rounded-2xl p-4 w-40vw h-80vh border-1 border-stone border-solid`
   return (
-    <div className="flex flex-row max-w-100vw">
-      <div className={`${commonBorder}`}>
-        <Editor className="h-74vh" width={"50vw"} onChange={(c) => saveMd2StateAndStore(c || "")} value={mdContent} />
-      </div>
-      <div>
-        <PdfPart className="h-74vh w-[calc(50vw-80px)] overflow-scroll" markdown={mdContent} />
+    <div className=" flex flex-row max-w-100vw items-center justify-center">
+      <div className="flex">
+        <div className={`${commonFrame} rounded-r-none border-r-0.5`}>
+          <Editor onChange={(c) => saveMd2StateAndStore(c || "")} value={mdContent} />
+        </div>
+        <div className={`${commonFrame} rounded-l-none border-l-0.5 overflow-scroll`}>
+          <PdfPart markdown={mdContent} />
+        </div>
       </div>
     </div>
   )
@@ -26,7 +28,7 @@ const PdfPart = (p: PdfPartProps) => {
 
   return (
     <div
-      className={`flex flex-col ${p.className} p-40px`}
+      className={`flex flex-col overflow-scroll p-40px`}
       style={{
         backgroundColor: mdStyles.overall?.backgroundColor,
       }}
