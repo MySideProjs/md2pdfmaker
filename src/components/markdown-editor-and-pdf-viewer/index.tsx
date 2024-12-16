@@ -11,7 +11,7 @@ export const MarkdownEditorAndPdfViewer = () => {
         <div className={`${commonFrame} rounded-r-none border-r-0.5`}>
           <Editor onChange={(c) => saveMd2StateAndStore(c || "")} value={mdContent} />
         </div>
-        <div className={`${commonFrame} rounded-l-none border-l-0.5 overflow-scroll`}>
+        <div className={`${commonFrame} rounded-l-none border-l-0.5 overflow-scroll p-0`}>
           <PdfPart markdown={mdContent} />
         </div>
       </div>

@@ -60,7 +60,7 @@ export const MdPreviewStyleModal = () => {
       {[1, 2, 3, 4, 5].map((headingLevel) => {
         const styleKey = `h${headingLevel}` as keyof MdStyles
         return (
-          <section className="mb-6">
+          <section key={styleKey} className="mb-6">
             <h3 className="text-lg">Heading Level {headingLevel}</h3>
 
             <section className="flex justify-left items-baseline">

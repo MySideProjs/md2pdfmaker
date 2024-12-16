@@ -14,7 +14,7 @@ export const PresetsSelector = () => {
       <label className="mr-2">Apply Style Preset:</label>
       <select onChange={onChange}>
         {Object.keys(presets).map((k) => (
-          <option>{k}</option>
+          <option key={k}>{k}</option>
         ))}
       </select>
     </div>
