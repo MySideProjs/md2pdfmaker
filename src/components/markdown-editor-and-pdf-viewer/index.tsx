@@ -4,7 +4,7 @@ import { useMarkdownContent, useStylesConf } from "../../state"
 
 export const MarkdownEditorAndPdfViewer = () => {
   const { mdContent, saveMd2StateAndStore } = useMarkdownContent()
-  const commonFrame = `shadow-xl rounded-2xl p-4 w-40vw h-80vh border-1 border-stone border-solid`
+  const commonFrame = `shadow-xl w-41vw h-80vh border-1 border-stone border-solid`
   return (
     <div className=" flex flex-row max-w-100vw items-center justify-center">
       <div className="flex">
@@ -28,7 +28,7 @@ const PdfPart = (p: PdfPartProps) => {
 
   return (
     <div
-      className={`flex flex-col overflow-scroll p-40px`}
+      className={`flex flex-col min-h-100% overflow-scroll p-40px`}
       style={{
         backgroundColor: mdStyles.overall?.backgroundColor,
       }}
