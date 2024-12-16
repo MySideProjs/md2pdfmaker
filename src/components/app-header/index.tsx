@@ -1,5 +1,5 @@
 import { HeaderButtons } from "../header-buttons"
-import logo from "../../../public/logo.png"
+import logo from "./logo.png"
 export const AppHeader = () => {
   return (
     <header className="ml-28 flex flex-row items-start justify-between">
