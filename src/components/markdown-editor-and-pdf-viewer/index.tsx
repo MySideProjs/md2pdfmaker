@@ -7,7 +7,7 @@ export const MarkdownEditorAndPdfViewer = () => {
   const commonBorder = "border-b-black border-0.5 border-solid"
   return (
     <div className="flex flex-row max-w-100vw">
-      <div className={`${commonBorder} no-print`}>
+      <div className={`${commonBorder}`}>
         <Editor width={"48vw"} className="h-74vh" onChange={(c) => saveMd2StateAndStore(c || "")} value={mdContent} />
       </div>
       <div>
