@@ -23,23 +23,23 @@ export const HeaderButtons = () => {
       {/* buttons */}
       <div className="flex flex-row">
         <div className={`rounded-l-xl border-r-0.5 ${commonCls}`} onClick={() => window.print()}>
-          <img src={iconDownload} />
+          <img src={iconDownload} alt="export to pdf" />
         </div>
 
         <div className={`${commonCls}`} onClick={loadFileAndOverwriteMarkdownContent}>
-          <img src={folderOpen} />
+          <img src={folderOpen} alt="open a markdown file" />
         </div>
 
         <div className={`${commonCls}`} onClick={() => toggleHelpCenterModal(true)}>
-          <img src={helpCenter} />
+          <img src={helpCenter} alt="help center" />
         </div>
 
         <div className={`${commonCls}`} onClick={() => openFeedbackForm()}>
-          <img src={iconRateReview} />
+          <img src={iconRateReview} alt="feedback" />
         </div>
 
         <div className={`rounded-r-xl border-l-0.5 ${commonCls}`} onClick={openStylesConfModal}>
-          <img src={iconPalette} />
+          <img src={iconPalette} alt="custom styles" />
         </div>
       </div>
 
