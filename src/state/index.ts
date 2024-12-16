@@ -1,5 +1,5 @@
 import { atom, useAtom } from "jotai"
-import { uniq } from "lodash"
+import { debounce, uniq } from "lodash"
 import { CSSProperties, useEffect } from "react"
 import { useEffectOnce } from "react-use"
 import { loadMdContentFromStore, loadStylesFromStore, saveMdContent2Store, saveStyles2Store } from "../store"
@@ -67,13 +67,7 @@ export const useStylesConf = () => {
   }, [mdStyles])
 
   /* * * * * * * * * * * * * *  // Add style modifiers below * * * * * * * * * * * * * * */
-  const changeOverallStyle = (extra: CSSProperties) => {
-    console.debug("changeOverallStyle", extra)
-    setMdStyles({
-      ...mdStyles,
-      overall: { ...mdStyles.overall, ...extra },
-    })
-  }
+
   const styleModifier = {
     reset: () => {
       setMdStyles(presets["Default"])
@@ -85,11 +79,11 @@ export const useStylesConf = () => {
         setMdStyles(presetGot)
       }
     },
-    overall: {
-      changeOverallFontFamily: (fontFamily: string) => changeOverallStyle({ fontFamily }),
-      changeOverallFontColor: (color: string) => changeOverallStyle({ color }),
-      changeOverallBgColor: (backgroundColor: string) => changeOverallStyle({ backgroundColor }),
-    },
+    changeGroupStyle: debounce((extra: CSSProperties, styleGroup: keyof MdStyles) => {
+      console.debug(`change ${styleGroup} style`, extra)
+      mdStyles[styleGroup] = { ...mdStyles[styleGroup], ...extra }
+      setMdStyles({ ...mdStyles })
+    }, 500),
   }
   /* * * * * * * * * * * * * *  // Add style modifiers above * * * * * * * * * * * * * * */
 

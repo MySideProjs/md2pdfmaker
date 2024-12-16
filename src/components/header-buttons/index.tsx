@@ -30,16 +30,16 @@ export const HeaderButtons = () => {
           <img src={folderOpen} alt="open a markdown file" />
         </div>
 
+        <div className={`${commonCls}`} onClick={openStylesConfModal}>
+          <img src={iconPalette} alt="custom styles" />
+        </div>
+
         <div className={`${commonCls}`} onClick={() => toggleHelpCenterModal(true)}>
           <img src={helpCenter} alt="help center" />
         </div>
 
-        <div className={`${commonCls}`} onClick={() => openFeedbackForm()}>
+        <div className={`rounded-r-xl border-l-0.5 ${commonCls}`} onClick={() => openFeedbackForm()}>
           <img src={iconRateReview} alt="feedback" />
-        </div>
-
-        <div className={`rounded-r-xl border-l-0.5 ${commonCls}`} onClick={openStylesConfModal}>
-          <img src={iconPalette} alt="custom styles" />
         </div>
       </div>
 

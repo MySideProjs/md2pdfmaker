@@ -4,7 +4,7 @@ export const AppHeader = () => {
   return (
     <div className="border-solid border-1 border-t-none border-gray shadow-md pt-6 pb-6 max-h-18vh">
       <div className="flex flex-col items-center">
-        <h1 className="w-full flex items-center justify-center font-mono">MARKDOWN ➡️ PDF</h1>
+        <h1 className="w-100vw flex items-center justify-center font-mono">MARKDOWN ➡️ PDF</h1>
         <p>with easy custom styles</p>
       </div>
       <div className="absolute right-10 top-10 bg-white flex">
