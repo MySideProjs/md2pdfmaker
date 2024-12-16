@@ -5,6 +5,7 @@ import { useEffectOnce } from "react-use"
 import { loadMdContentFromStore, loadStylesFromStore, saveMdContent2Store, saveStyles2Store } from "../store"
 import { loadMarkdownFile } from "../utils/file"
 import { presets, PresetsNames } from "../components/markdown-preview-style-presets/presets"
+import { helpCenterMdContent } from "../components/app-help-modal"
 
 /* -------------------------------------------------------------------------- */
 /*                                  Font Options                              */
@@ -118,7 +119,7 @@ export const useMarkdownContent = () => {
     saveMdContent2Store(md)
   }
   useEffectOnce(() => {
-    setMdContent(loadMdContentFromStore)
+    setMdContent(loadMdContentFromStore() ?? helpCenterMdContent)
   })
 
   const loadFileAndOverwriteMarkdownContent = () => {

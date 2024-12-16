@@ -7,15 +7,15 @@ export const AppHelpModal = (p: AppHelpModalProps) => {
     <Modal
       {...p}
       style={{
-        content: { inset: 300 },
+        content: { inset: 200 },
       }}
     >
-      <Markdown>{readme}</Markdown>
+      <Markdown>{helpCenterMdContent}</Markdown>
     </Modal>
   )
 }
 
-const readme = `
+export const helpCenterMdContent = `
 ## How to use it?
 
 - Open an markdown file or just start writing
