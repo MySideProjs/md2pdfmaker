@@ -11,3 +11,19 @@
     top: 0;
   }
 }
+
+/* button style */
+button {
+  background-color: transparent;
+  border-radius: 8px;
+  border-width: 1px;
+  padding: 0.4rem;
+}
+
+button:hover {
+  background-color: rgb(239, 239, 239);
+}
+
+button:active {
+  background-color: rgb(222, 222, 222);
+}

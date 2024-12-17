@@ -4,7 +4,7 @@ import { CSSProperties, useEffect } from "react"
 import { useEffectOnce } from "react-use"
 import { loadMdContentFromStore, loadStylesFromStore, saveMdContent2Store, saveStyles2Store } from "../store"
 import { loadMarkdownFile } from "../utils/file"
-import { getPreset, PresetsNames } from "../components/markdown-preview-style-presets/presets"
+import { getPreset, PresetsNames } from "./presets"
 import { helpCenterMdContent } from "../components/app-help-modal"
 
 /* -------------------------------------------------------------------------- */

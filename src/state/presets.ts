@@ -1,4 +1,4 @@
-import { MdStyles } from "../../state"
+import { MdStyles } from "."
 import { ArrayValues } from "type-fest"
 export const presetsNames = ["Default", "UrbanSteel", "Rusted Machinery", "Smoky Sky"]
 export type PresetsNames = ArrayValues<typeof presetsNames>
@@ -8,9 +8,29 @@ export const getPreset = (name: PresetsNames): MdStyles => {
     case "Default":
       return {
         overall: {
-          color: "#000000",
+          color: "#343131",
           fontFamily: "Arial",
           backgroundColor: "#ffffff",
+        },
+        h1: {
+          color: "#1A1A1D",
+          fontFamily: "Arial",
+        },
+        h2: {
+          color: "#33372C",
+          fontFamily: "Arial",
+        },
+        h3: {
+          color: "#3C3D37",
+          fontFamily: "Arial",
+        },
+        h4: {
+          color: "#3C3D37",
+          fontFamily: "Arial",
+        },
+        h5: {
+          color: "#3C3D37",
+          fontFamily: "Arial",
         },
       }
     case "UrbanSteel":
