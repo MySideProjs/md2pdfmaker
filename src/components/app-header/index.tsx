@@ -2,8 +2,8 @@ import { HeaderButtons } from "../header-buttons"
 import logo from "./logo.png"
 export const AppHeader = () => {
   return (
-    <header className="ml-28 flex flex-row items-start justify-between">
-      <div className="m-8 flex items-center">
+    <header className="mb-4 flex flex-row items-start justify-between">
+      <div className="flex items-center">
         <img className="h-8 border-gray border-1 border-solid" src={logo} alt="logo" />
         <div className="mr-4" />
         <div>
@@ -12,7 +12,7 @@ export const AppHeader = () => {
           <span className="">with easy custom styles</span>
         </div>
       </div>
-      <div className="m-8 mr-36 bg-white flex">
+      <div className="bg-white flex">
         <HeaderButtons />
       </div>
     </header>

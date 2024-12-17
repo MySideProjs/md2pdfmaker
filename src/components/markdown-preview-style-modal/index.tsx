@@ -17,7 +17,7 @@ export const MdPreviewStyleModal = () => {
       isOpen={isStyleConfModalOpen}
       onRequestClose={closeStylesConfModal}
       style={{
-        content: { inset: 200 },
+        content: { inset: 100 },
       }}
     >
       {/* ------------------------------------------------------------------------- */

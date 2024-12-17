@@ -4,16 +4,14 @@ import { useMarkdownContent, useStylesConf } from "../../state"
 
 export const MarkdownEditorAndPdfViewer = () => {
   const { mdContent, saveMd2StateAndStore } = useMarkdownContent()
-  const commonFrame = `shadow-xl w-41vw h-80vh border-1 border-stone border-solid`
+  const commonFrame = `flex-1 shadow-xl h-80vh border-1 border-stone border-solid`
   return (
-    <div className=" flex flex-row max-w-100vw items-center justify-center">
-      <div className="flex">
-        <div className={`${commonFrame} rounded-r-none border-r-0.5`}>
-          <Editor onChange={(c) => saveMd2StateAndStore(c || "")} value={mdContent} />
-        </div>
-        <div className={`${commonFrame} rounded-l-none border-l-0.5 overflow-scroll p-0`}>
-          <PdfPart markdown={mdContent} />
-        </div>
+    <div className="grid grid-auto-flow-col grid-auto-cols-[calc(50vw-3rem)] mb-4">
+      <div className={`${commonFrame} rounded-r-none border-r-0.5`}>
+        <Editor onChange={(c) => saveMd2StateAndStore(c || "")} value={mdContent} />
+      </div>
+      <div className={`${commonFrame} rounded-l-none border-l-0.5 overflow-scroll p-0`}>
+        <PdfPart markdown={mdContent} />
       </div>
     </div>
   )
