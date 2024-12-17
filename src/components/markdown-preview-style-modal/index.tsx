@@ -15,16 +15,15 @@ export const MdPreviewStyleModal = () => {
 
   return (
     <Drawer open={isStyleConfModalOpen} onClose={closeStylesConfModal}>
-      <div className="p-4">
+      <div className="p-8 font-sans">
         {/* ------------------------------------------------------------------------- */
         /*                                   Overall                                  */
         /* -------------------------------------------------------------------------- */}
         <section className="mb-6">
-          <h3 className="text-lg">Overall</h3>
+          <h3 className="text-lg mb-2">Overall</h3>
 
-          <section className="flex justify-left items-baseline">
-            {/* ------------- Font ------------- */}
-            <div className="mr-4">
+          <section className="">
+            <div className="mb-2">
               <label className="mr-2">Font Family:</label>
               <select value={mdStyles.overall?.fontFamily} onChange={(e) => styleModifier.changeGroupStyle({ fontFamily: e.target.value }, "overall")}>
                 {fontsOptions.map((f) => (
@@ -33,14 +32,12 @@ export const MdPreviewStyleModal = () => {
               </select>
             </div>
 
-            <div></div>
-            <div className="mr-4">
+            <div className="mb-2">
               <label className="mr-2">Font Color:</label>
               <input type="color" value={mdStyles.overall?.color} onChange={(e) => styleModifier.changeGroupStyle({ color: e.target.value }, "overall")} />
             </div>
 
-            {/* ------------- Bg ------------- */}
-            <div className="mr-4">
+            <div>
               <label className="mr-2">Background Color:</label>
               <input
                 type="color"
@@ -58,10 +55,10 @@ export const MdPreviewStyleModal = () => {
           const styleKey = `h${headingLevel}` as keyof MdStyles
           return (
             <section key={styleKey} className="mb-6">
-              <h3 className="text-lg">Heading Level {headingLevel}</h3>
+              <h3 className="text-lg mb-2">Heading Level {headingLevel}</h3>
 
-              <section className="flex justify-left items-baseline">
-                <div className="mr-4">
+              <section className="flex flex-col justify-left items-baseline">
+                <div className="mb-2">
                   <label className="mr-2">Font Family:</label>
                   <select value={mdStyles[styleKey]?.fontFamily} onChange={(e) => styleModifier.changeGroupStyle({ fontFamily: e.target.value }, styleKey)}>
                     {fontsOptions.map((f) => (
@@ -70,7 +67,7 @@ export const MdPreviewStyleModal = () => {
                   </select>
                 </div>
 
-                <div className="mr-4">
+                <div className="mb-2">
                   <label className="mr-2">Font Color:</label>
                   <input type="color" value={mdStyles[styleKey]?.color} onChange={(e) => styleModifier.changeGroupStyle({ color: e.target.value }, styleKey)} />
                 </div>

@@ -10,7 +10,7 @@ export const AppHelpModal = (p: AppHelpModalProps) => {
         content: { inset: 200 },
       }}
     >
-      <Markdown>{helpCenterMdContent}</Markdown>
+      <Markdown className="font-sans">{helpCenterMdContent}</Markdown>
     </Modal>
   )
 }
