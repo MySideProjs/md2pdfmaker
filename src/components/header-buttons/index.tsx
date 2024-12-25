@@ -23,7 +23,7 @@ export const HeaderButtons = () => {
       {/* buttons */}
       <div className="flex flex-row">
         <div className={`rounded-l-xl border-r-0.5 ${commonCls}`} onClick={() => window.print()}>
-          <img src={iconDownload} alt="export to pdf" />
+          <img src={iconDownload} alt="export markdown to pdf" />
         </div>
 
         <div className={`${commonCls}`} onClick={loadFileAndOverwriteMarkdownContent}>
@@ -31,7 +31,7 @@ export const HeaderButtons = () => {
         </div>
 
         <div className={`${commonCls}`} onClick={openStylesConfModal}>
-          <img src={iconPalette} alt="custom styles" />
+          <img src={iconPalette} alt="custom content styles" />
         </div>
 
         <div className={`${commonCls}`} onClick={() => toggleHelpCenterModal(true)}>
@@ -39,7 +39,7 @@ export const HeaderButtons = () => {
         </div>
 
         <div className={`rounded-r-xl border-l-0.5 ${commonCls}`} onClick={() => openFeedbackForm()}>
-          <img src={iconRateReview} alt="feedback" />
+          <img src={iconRateReview} alt="feedback for markdown to pdf file" />
         </div>
       </div>
 
