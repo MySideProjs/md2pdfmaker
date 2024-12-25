@@ -1,1 +1,1 @@
-Visit https://markdown-to-pdf.netlify.app/ and start use it.
+Visit https://markdown-to-pdf.com/ and start use it.
