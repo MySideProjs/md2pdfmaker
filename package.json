@@ -51,5 +51,12 @@
     "typescript-eslint": "^8.11.0",
     "unocss": "^0.64.0",
     "vite": "^5.4.10"
+  },
+  "pnpm": {
+    "overrides": {
+      "cross-spawn@>=7.0.0 <7.0.5": ">=7.0.5",
+      "@eslint/plugin-kit@<0.2.3": ">=0.2.3",
+      "nanoid@<3.3.8": ">=3.3.8"
+    }
   }
 }
