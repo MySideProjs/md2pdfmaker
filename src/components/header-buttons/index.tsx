@@ -2,11 +2,11 @@ import { useToggle } from "react-use"
 import { useMarkdownContent, useStylesConf } from "../../state"
 import { AppHelpModal } from "../app-help-modal"
 import { MdPreviewStyleModal } from "../markdown-preview-style-modal"
-import iconDownload from "./download.svg"
-import folderOpen from "./folder_open.svg"
+import iconDownload from "./download-pdf.svg"
+import folderOpen from "./open-markdown-file.svg"
 import helpCenter from "./help_center.svg"
-import iconPalette from "./palette.svg"
-import iconRateReview from "./rate_review.svg"
+import iconPalette from "./custom-styles.svg"
+import iconRateReview from "./feedback-for-md-to-pdf.svg"
 
 export const HeaderButtons = () => {
   const { loadFileAndOverwriteMarkdownContent } = useMarkdownContent()
