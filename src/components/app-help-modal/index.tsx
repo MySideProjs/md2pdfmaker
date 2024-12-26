@@ -17,13 +17,13 @@ export const AppHelpModal = (p: AppHelpModalProps) => {
 
 export const helpCenterMdContent = `
 # How to use it?
-
-**Steps**
+---
+## Steps
 - Open an markdown file or just start writing
 - Edit Styles
 - Save it as PDF
 
-**Compatibility**
+## Compatibility
 - Chrome & Edge: Suits the best
 - Firefox: Limited
   - Not be able to custom margin color when print 
@@ -32,7 +32,7 @@ export const helpCenterMdContent = `
   - Not be able to custom margin color & size print 
   - Not be able to load local fonts
 
-**FAQ**
+## FAQ
 - Q: How to make background color works when print it?
 - A: In the print page, expand 'More settings', check 'Background graphics'
 

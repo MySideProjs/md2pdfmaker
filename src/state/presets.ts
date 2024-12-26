@@ -1,51 +1,21 @@
-import { merge } from "lodash"
-import { MdStyles } from "."
 import { ArrayValues } from "type-fest"
+import { MdStyles } from "."
 import { defaultFontSizes } from "./defaults"
 export const presetsNames = ["Default", "UrbanSteel", "Rusted Machinery", "Smoky Sky"]
 export type PresetsNames = ArrayValues<typeof presetsNames>
 
-const common: MdStyles = {
-  overall: { fontSize: defaultFontSizes[2] },
-  h6: { fontSize: defaultFontSizes[3] },
-  h5: { fontSize: defaultFontSizes[4] },
-  h4: { fontSize: defaultFontSizes[5] },
-  h3: { fontSize: defaultFontSizes[6] },
-  h2: { fontSize: defaultFontSizes[7] },
-  h1: { fontSize: defaultFontSizes[8] },
-}
 export const getPreset = (name: PresetsNames): MdStyles => {
   switch (name) {
     case "Default":
-      return merge(common, {
+      return mergeStyleWithCommon({
         overall: {
           color: "#343131",
           fontFamily: "Arial",
           backgroundColor: "#ffffff",
         },
-        h1: {
-          color: "#1A1A1D",
-          fontFamily: "Arial",
-        },
-        h2: {
-          color: "#33372C",
-          fontFamily: "Arial",
-        },
-        h3: {
-          color: "#3C3D37",
-          fontFamily: "Arial",
-        },
-        h4: {
-          color: "#3C3D37",
-          fontFamily: "Arial",
-        },
-        h5: {
-          color: "#3C3D37",
-          fontFamily: "Arial",
-        },
       })
     case "UrbanSteel":
-      return merge({
+      return mergeStyleWithCommon({
         overall: {
           backgroundColor: "#E0E2E4",
           fontFamily: "Optimal",
@@ -53,7 +23,7 @@ export const getPreset = (name: PresetsNames): MdStyles => {
         },
       })
     case "Rusted Machinery":
-      return merge({
+      return mergeStyleWithCommon({
         overall: {
           backgroundColor: "#F7C996",
           fontFamily: "Impact",
@@ -61,7 +31,7 @@ export const getPreset = (name: PresetsNames): MdStyles => {
         },
       })
     case "Smoky Sky":
-      return merge({
+      return mergeStyleWithCommon({
         overall: {
           backgroundColor: "#F9F7F7",
           fontFamily: "monospace",
@@ -69,12 +39,24 @@ export const getPreset = (name: PresetsNames): MdStyles => {
         },
       })
     default:
-      return merge({
+      return mergeStyleWithCommon({
         overall: {
           color: "#000000",
           fontFamily: "Arial",
           backgroundColor: "#ffffff",
         },
       })
+  }
+}
+
+const mergeStyleWithCommon = (extra: MdStyles) => {
+  return {
+    overall: { fontSize: defaultFontSizes[2], ...extra.overall },
+    h6: { fontSize: defaultFontSizes[3], ...extra.h6 },
+    h5: { fontSize: defaultFontSizes[4], ...extra.h5 },
+    h4: { fontSize: defaultFontSizes[5], ...extra.h4 },
+    h3: { fontSize: defaultFontSizes[6], ...extra.h3 },
+    h2: { fontSize: defaultFontSizes[7], ...extra.h2 },
+    h1: { fontSize: defaultFontSizes[8], ...extra.h1 },
   }
 }

@@ -29,7 +29,7 @@ const Overall = () => {
           <label className="mr-2">Font Size:</label>
           <select value={mdStyles.overall?.fontSize} onChange={(e) => styleModifier.changeGroupStyle({ fontSize: e.target.value }, "overall")}>
             {defaultFontSizes.map((size) => (
-              <option>{size}</option>
+              <option key={size}>{size}</option>
             ))}
           </select>
         </div>
@@ -77,7 +77,7 @@ const HeadingLevels = () => {
                 <label className="mr-2">Font Size:</label>
                 <select value={mdStyles[styleKey]?.fontSize} onChange={(e) => styleModifier.changeGroupStyle({ fontSize: e.target.value }, styleKey)}>
                   {defaultFontSizes.map((size) => (
-                    <option>{size}</option>
+                    <option key={size}>{size}</option>
                   ))}
                 </select>
               </div>

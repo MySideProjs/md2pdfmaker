@@ -71,14 +71,11 @@ export const useStylesConf = () => {
   /* * * * * * * * * * * * * *  // Add style modifiers below * * * * * * * * * * * * * * */
 
   const styleModifier = {
-    reset: () => {
-      setMdStyles(getPreset("Default"))
-    },
     changePresetTo: (presetName: PresetsNames) => {
       const presetGot = getPreset(presetName)
-      console.log(presetGot)
+      console.debug("got preset:", presetGot)
       if (presetGot !== undefined) {
-        setMdStyles(presetGot)
+        setMdStyles({ ...presetGot })
       }
     },
     changeGroupStyle: debounce((extra: CSSProperties, styleGroup: keyof MdStyles, apply2All = false) => {
