@@ -26,20 +26,22 @@
       "@type": "SoftwareApplication",
       "name": "Markdown to PDF",
       "image": "/logo.png",
-      "applicationCategory": "UtilitiesApplication",
-      
+      "applicationCategory": "UtilitiesApplication"
     }
   </script>
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-CKE0L9S2S1"></script>
   <script>
-    window.dataLayer = window.dataLayer || []
-    function gtag() {
-      dataLayer.push(arguments)
+    if (/localhost/.test(window.location.hostname)) {
+      console.info("GA will not be enabled in local")
+    } else {
+      window.dataLayer = window.dataLayer || []
+      function gtag() {
+        dataLayer.push(arguments)
+      }
+      gtag("js", new Date())
+      gtag("config", "G-CKE0L9S2S1")
     }
-    gtag("js", new Date())
-
-    gtag("config", "G-CKE0L9S2S1")
   </script>
   <!-- Google tag (gtag.js) -->
   <body>
