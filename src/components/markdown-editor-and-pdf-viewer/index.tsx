@@ -39,6 +39,7 @@ const PdfPart = (p: PdfPartProps) => {
             h3: (p) => <h3 {...p} style={mdStyles.h3} />,
             h4: (p) => <h4 {...p} style={mdStyles.h4} />,
             h5: (p) => <h5 {...p} style={mdStyles.h5} />,
+            h6: (p) => <h6 {...p} style={mdStyles.h6} />,
           }}
         >
           {p.markdown}

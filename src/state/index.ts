@@ -6,11 +6,12 @@ import { loadMdContentFromStore, loadStylesFromStore, saveMdContent2Store, saveS
 import { loadMarkdownFile } from "../utils/file"
 import { getPreset, PresetsNames } from "./presets"
 import { helpCenterMdContent } from "../components/app-help-modal"
+import { defaultFonts } from "./defaults"
 
 /* -------------------------------------------------------------------------- */
 /*                                  Font Options                              */
 /* -------------------------------------------------------------------------- */
-const defaultFonts = ["Arial", "Courier", "Georgia", "Times", "Trebuchet", "Verdana", "monospace", "Optima", "Impact"]
+
 const fontOptionsAtom = atom(defaultFonts)
 export const useFontsOptions = () => {
   const [fontsOptions, setFontsOptions] = useAtom(fontOptionsAtom)
@@ -46,6 +47,7 @@ export type MdStyles = {
   h3?: CSSProperties
   h4?: CSSProperties
   h5?: CSSProperties
+  h6?: CSSProperties
   overall?: CSSProperties
 }
 

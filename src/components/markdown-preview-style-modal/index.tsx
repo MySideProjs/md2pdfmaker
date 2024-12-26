@@ -1,6 +1,7 @@
 import Drawer from "@mui/material/Drawer"
 import { MdStyles, useFontsOptions, useStylesConf } from "../../state"
 import { presetsNames } from "../../state/presets"
+import { defaultFontSizes } from "../../state/defaults"
 
 export const MdPreviewStyleModal = () => {
   const { isStyleConfModalOpen, closeStylesConfModal } = useStylesConf()
@@ -15,6 +16,7 @@ export const MdPreviewStyleModal = () => {
     </Drawer>
   )
 }
+
 const Overall = () => {
   const { mdStyles, styleModifier } = useStylesConf()
   const { fontsOptions } = useFontsOptions()
@@ -22,7 +24,16 @@ const Overall = () => {
     <section className="mb-6">
       <h3 className="text-lg mb-2">Overall</h3>
 
-      <section className="">
+      <section>
+        <div className="mb-2">
+          <label className="mr-2">Font Size:</label>
+          <select value={mdStyles.overall?.fontSize} onChange={(e) => styleModifier.changeGroupStyle({ fontSize: e.target.value }, "overall")}>
+            {defaultFontSizes.map((size) => (
+              <option>{size}</option>
+            ))}
+          </select>
+        </div>
+
         <div className="mb-2">
           <label className="mr-2">Font Family:</label>
           <select value={mdStyles.overall?.fontFamily} onChange={(e) => styleModifier.changeGroupStyle({ fontFamily: e.target.value }, "overall", true)}>
@@ -37,15 +48,6 @@ const Overall = () => {
           <input type="color" value={mdStyles.overall?.color} onChange={(e) => styleModifier.changeGroupStyle({ color: e.target.value }, "overall", true)} />
         </div>
 
-        <div className="mb-2">
-          <label className="mr-2">Base Font Size (Pixel):</label>
-          <select value={mdStyles.overall?.fontSize} onChange={(e) => styleModifier.changeGroupStyle({ fontSize: e.target.value }, "overall")}>
-            {["8pt", "10pt", "11pt", "12pt", "14pt", "16pt", "18pt", "20pt", "24pt", "28pt", "28pt", "32pt"].map((size) => (
-              <option>{size}</option>
-            ))}
-          </select>
-        </div>
-
         <div>
           <label className="mr-2">Background Color:</label>
           <input
@@ -58,18 +60,28 @@ const Overall = () => {
     </section>
   )
 }
+
 const HeadingLevels = () => {
   const { mdStyles, styleModifier } = useStylesConf()
   const { fontsOptions } = useFontsOptions()
   return (
     <div>
-      {[1, 2, 3, 4, 5].map((headingLevel) => {
+      {[1, 2, 3, 4, 5, 6].map((headingLevel) => {
         const styleKey = `h${headingLevel}` as keyof MdStyles
         return (
           <section key={styleKey} className="mb-6">
             <h3 className="text-lg mb-2">Heading Level {headingLevel}</h3>
 
             <section className="flex flex-col justify-left items-baseline">
+              <div className="mb-2">
+                <label className="mr-2">Font Size:</label>
+                <select value={mdStyles[styleKey]?.fontSize} onChange={(e) => styleModifier.changeGroupStyle({ fontSize: e.target.value }, styleKey)}>
+                  {defaultFontSizes.map((size) => (
+                    <option>{size}</option>
+                  ))}
+                </select>
+              </div>
+
               <div className="mb-2">
                 <label className="mr-2">Font Family:</label>
                 <select value={mdStyles[styleKey]?.fontFamily} onChange={(e) => styleModifier.changeGroupStyle({ fontFamily: e.target.value }, styleKey)}>
@@ -90,6 +102,7 @@ const HeadingLevels = () => {
     </div>
   )
 }
+
 const Buttons = () => {
   const { styleModifier } = useStylesConf()
   const { requestUserPermissionToFetchFonts } = useFontsOptions()
