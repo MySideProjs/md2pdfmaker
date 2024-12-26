@@ -8,7 +8,7 @@ export const MarkdownEditorAndPdfViewer = () => {
   return (
     <div className="grid grid-auto-flow-col grid-auto-cols-[calc(50vw-3rem)] mb-4">
       <div className={`${commonFrame} rounded-r-none border-r-0.5`}>
-        <Editor onChange={(c) => saveMd2StateAndStore(c || "")} value={mdContent} />
+        <Editor theme="vs-dark" onChange={(c) => saveMd2StateAndStore(c || "")} value={mdContent} />
       </div>
       <div className={`${commonFrame} rounded-l-none border-l-0.5 overflow-scroll p-0`}>
         <PdfPart markdown={mdContent} />
