@@ -79,9 +79,9 @@ export const useStylesConf = () => {
         setMdStyles(presetGot)
       }
     },
-    changeGroupStyle: debounce((extra: CSSProperties, styleGroup: keyof MdStyles) => {
+    changeGroupStyle: debounce((extra: CSSProperties, styleGroup: keyof MdStyles, apply2All = false) => {
       console.debug(`change ${styleGroup} style`, extra)
-      if (styleGroup === "overall") {
+      if (styleGroup === "overall" && apply2All) {
         mdStyles["overall"] = { ...mdStyles["overall"], ...extra }
         mdStyles["h1"] = { ...mdStyles["h1"], ...extra }
         mdStyles["h2"] = { ...mdStyles["h2"], ...extra }

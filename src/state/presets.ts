@@ -3,11 +3,15 @@ import { ArrayValues } from "type-fest"
 export const presetsNames = ["Default", "UrbanSteel", "Rusted Machinery", "Smoky Sky"]
 export type PresetsNames = ArrayValues<typeof presetsNames>
 
+const commonOverall: MdStyles["overall"] = {
+  fontSize: "14pt",
+}
 export const getPreset = (name: PresetsNames): MdStyles => {
   switch (name) {
     case "Default":
       return {
         overall: {
+          ...commonOverall,
           color: "#343131",
           fontFamily: "Arial",
           backgroundColor: "#ffffff",
@@ -36,6 +40,7 @@ export const getPreset = (name: PresetsNames): MdStyles => {
     case "UrbanSteel":
       return {
         overall: {
+          ...commonOverall,
           backgroundColor: "#E0E2E4",
           fontFamily: "Optimal",
           color: "#4B4E54",
@@ -44,6 +49,7 @@ export const getPreset = (name: PresetsNames): MdStyles => {
     case "Rusted Machinery":
       return {
         overall: {
+          ...commonOverall,
           backgroundColor: "#F7C996",
           fontFamily: "Impact",
           color: "#8B4513",
@@ -52,6 +58,7 @@ export const getPreset = (name: PresetsNames): MdStyles => {
     case "Smoky Sky":
       return {
         overall: {
+          ...commonOverall,
           backgroundColor: "#F9F7F7",
           fontFamily: "monospace",
           color: "#4A4E69",
@@ -60,6 +67,7 @@ export const getPreset = (name: PresetsNames): MdStyles => {
     default:
       return {
         overall: {
+          ...commonOverall,
           color: "#000000",
           fontFamily: "Arial",
           backgroundColor: "#ffffff",

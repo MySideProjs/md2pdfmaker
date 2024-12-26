@@ -25,7 +25,7 @@ const Overall = () => {
       <section className="">
         <div className="mb-2">
           <label className="mr-2">Font Family:</label>
-          <select value={mdStyles.overall?.fontFamily} onChange={(e) => styleModifier.changeGroupStyle({ fontFamily: e.target.value }, "overall")}>
+          <select value={mdStyles.overall?.fontFamily} onChange={(e) => styleModifier.changeGroupStyle({ fontFamily: e.target.value }, "overall", true)}>
             {fontsOptions.map((f) => (
               <option key={f}>{f}</option>
             ))}
@@ -34,7 +34,16 @@ const Overall = () => {
 
         <div className="mb-2">
           <label className="mr-2">Font Color:</label>
-          <input type="color" value={mdStyles.overall?.color} onChange={(e) => styleModifier.changeGroupStyle({ color: e.target.value }, "overall")} />
+          <input type="color" value={mdStyles.overall?.color} onChange={(e) => styleModifier.changeGroupStyle({ color: e.target.value }, "overall", true)} />
+        </div>
+
+        <div className="mb-2">
+          <label className="mr-2">Base Font Size (Pixel):</label>
+          <select value={mdStyles.overall?.fontSize} onChange={(e) => styleModifier.changeGroupStyle({ fontSize: e.target.value }, "overall")}>
+            {["8pt", "10pt", "11pt", "12pt", "14pt", "16pt", "18pt", "20pt", "24pt", "28pt", "28pt", "32pt"].map((size) => (
+              <option>{size}</option>
+            ))}
+          </select>
         </div>
 
         <div>
@@ -92,7 +101,7 @@ const Buttons = () => {
     }
   }
   return (
-    <div className="mb-4">
+    <section className="mb-6">
       <div>
         <label className="mr-2 text-lg font-bold">Apply Style Preset</label>
 
@@ -113,6 +122,6 @@ const Buttons = () => {
           </button>
         </div>
       </div>
-    </div>
+    </section>
   )
 }
