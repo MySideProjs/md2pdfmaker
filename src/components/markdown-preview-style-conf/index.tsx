@@ -1,28 +1,22 @@
-import Drawer from "@mui/material/Drawer"
 import { MdStyles, useFontsOptions, useStylesConf } from "../../state"
-import { presetsNames } from "../../state/presets"
 import { defaultFontSizes } from "../../state/defaults"
+import { presetsNames } from "../../state/presets"
 
-export const MdPreviewStyleModal = () => {
-  const { isStyleConfModalOpen, closeStylesConfModal } = useStylesConf()
-
+export const MdPreviewStyleConfPart = () => {
   return (
-    <Drawer open={isStyleConfModalOpen} onClose={closeStylesConfModal}>
-      <div className="p-8 font-sans">
-        <Buttons />
-        <Overall />
-        <HeadingLevels />
-      </div>
-    </Drawer>
+    <div className="p-8 font-sans text-sm">
+      <Buttons />
+      <Overall />
+      <HeadingLevels />
+    </div>
   )
 }
-
 const Overall = () => {
   const { mdStyles, styleModifier } = useStylesConf()
   const { fontsOptions } = useFontsOptions()
   return (
     <section className="mb-6">
-      <h3 className="text-lg mb-2">Overall</h3>
+      <h3 className="text-md mb-2">Overall</h3>
 
       <section>
         <div className="mb-2">
@@ -70,7 +64,7 @@ const HeadingLevels = () => {
         const styleKey = `h${headingLevel}` as keyof MdStyles
         return (
           <section key={styleKey} className="mb-6">
-            <h3 className="text-lg mb-2">Heading Level {headingLevel}</h3>
+            <h3 className="text-md mb-2">Heading Level {headingLevel}</h3>
 
             <section className="flex flex-col justify-left items-baseline">
               <div className="mb-2">
@@ -116,7 +110,7 @@ const Buttons = () => {
   return (
     <section className="mb-6">
       <div>
-        <label className="mr-2 text-lg font-bold">Apply Style Preset</label>
+        <label className="mr-2 text-md font-bold">Apply Style Preset</label>
 
         <div className="flex flex-row">
           {presetsNames.map((k) => (
@@ -128,7 +122,7 @@ const Buttons = () => {
       </div>
 
       <div>
-        <label className="mr-2 text-lg font-bold">Font Options</label>
+        <label className="mr-2 text-md font-bold">Font Options</label>
         <div>
           <button className="m-2 ml-0 w-40" onClick={onClickLoadLocalFonts}>
             Load System Fonts

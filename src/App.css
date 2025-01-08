@@ -14,10 +14,11 @@
 
 /* button style */
 button {
+  font-size: 0.8rem;
   background-color: transparent;
-  border-radius: 8px;
+  border-radius: 6px;
   border-width: 1px;
-  padding: 0.4rem;
+  padding: 0.2rem;
   font-family: monospace;
 }
 

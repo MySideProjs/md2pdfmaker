@@ -1,7 +1,7 @@
 import { ArrayValues } from "type-fest"
 import { MdStyles } from "."
 import { defaultFontSizes } from "./defaults"
-export const presetsNames = ["Default", "UrbanSteel", "Rusted Machinery", "Smoky Sky"]
+export const presetsNames = ["Default", "UrbanSteel", "Rusted", "Smoky Sky"]
 export type PresetsNames = ArrayValues<typeof presetsNames>
 
 export const getPreset = (name: PresetsNames): MdStyles => {
@@ -22,7 +22,7 @@ export const getPreset = (name: PresetsNames): MdStyles => {
           color: "#4B4E54",
         },
       })
-    case "Rusted Machinery":
+    case "Rusted":
       return mergeStyleWithCommon({
         overall: {
           backgroundColor: "#F7C996",

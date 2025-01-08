@@ -1,17 +1,14 @@
 import { useToggle } from "react-use"
-import { useMarkdownContent, useStylesConf } from "../../state"
-import { AppHelpModal } from "../app-help-modal"
-import { MdPreviewStyleModal } from "../markdown-preview-style-modal"
-import iconDownload from "./download-pdf.svg"
-import folderOpen from "./open-markdown-file.svg"
-import helpCenter from "./help_center.svg"
-import iconPalette from "./custom-styles.svg"
-import iconRateReview from "./feedback-for-md-to-pdf.svg"
+import { useMarkdownContent } from "../../state"
 import { reportGA } from "../../utils/ga"
+import { AppHelpModal } from "../app-help-modal"
+import iconDownload from "./download-pdf.svg"
+import iconRateReview from "./feedback-for-md-to-pdf.svg"
+import helpCenter from "./help_center.svg"
+import folderOpen from "./open-markdown-file.svg"
 
 export const HeaderButtons = () => {
   const { loadFileAndOverwriteMarkdownContent } = useMarkdownContent()
-  const { openStylesConfModal } = useStylesConf()
   const [isHelpCenterModalOpen, toggleHelpCenterModal] = useToggle(false)
 
   const commonCls = "h-12 w-12 flex items-center justify-center border-0.5 border-solid border-gray cursor-pointer hover:bg-slate-200 active:bg-slate"
@@ -46,16 +43,6 @@ export const HeaderButtons = () => {
         <div
           className={`${commonCls}`}
           onClick={() => {
-            openStylesConfModal()
-            reportGA("open_styles_conf")
-          }}
-        >
-          <img src={iconPalette} alt="custom content styles" />
-        </div>
-
-        <div
-          className={`${commonCls}`}
-          onClick={() => {
             toggleHelpCenterModal(true)
             reportGA("open_help_center")
           }}
@@ -76,7 +63,6 @@ export const HeaderButtons = () => {
 
       {/* modals */}
       <AppHelpModal isOpen={isHelpCenterModalOpen} onRequestClose={() => toggleHelpCenterModal(false)} />
-      <MdPreviewStyleModal />
     </div>
   )
 }
