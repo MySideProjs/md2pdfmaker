@@ -11,12 +11,51 @@ export const MdPreviewStyleConfPart = () => {
     </div>
   )
 }
+
+const Buttons = () => {
+  const { styleModifier } = useStylesConf()
+  const { requestUserPermissionToFetchFonts } = useFontsOptions()
+  const onClickLoadLocalFonts = () => {
+    if (window.queryLocalFonts == undefined) {
+      alert("Sorry, seems current browser does not support loading local fonts, try Chrome please!")
+    } else {
+      requestUserPermissionToFetchFonts()
+    }
+  }
+  return (
+    <section className="mb-6">
+      <div>
+        <label className="mr-2 text-md font-bold">Apply Style Preset</label>
+
+        <div className="flex flex-row">
+          {presetsNames.map((k) => (
+            <button className="m-2 ml-0 w-40" key={k} onClick={() => styleModifier.changePresetTo(k)}>
+              {k}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <div>
+        <label className="mr-2 text-md font-bold">Font Options</label>
+        <div>
+          <button className="m-2 ml-0 w-40" onClick={onClickLoadLocalFonts}>
+            Load System Fonts
+          </button>
+        </div>
+      </div>
+    </section>
+  )
+}
+
 const Overall = () => {
   const { mdStyles, styleModifier } = useStylesConf()
   const { fontsOptions } = useFontsOptions()
   return (
     <section className="mb-6">
-      <h3 className="text-md mb-2">Overall</h3>
+      <div className="mb-2">
+        <label className="text-md font-bold">Overall</label>
+      </div>
 
       <section>
         <div className="mb-2">
@@ -64,7 +103,9 @@ const HeadingLevels = () => {
         const styleKey = `h${headingLevel}` as keyof MdStyles
         return (
           <section key={styleKey} className="mb-6">
-            <h3 className="text-md mb-2">Heading Level {headingLevel}</h3>
+            <div className="mb-2">
+              <label className="text-md font-bold mb-2">Heading Level {headingLevel}</label>
+            </div>
 
             <section className="flex flex-col justify-left items-baseline">
               <div className="mb-2">
@@ -94,41 +135,5 @@ const HeadingLevels = () => {
         )
       })}
     </div>
-  )
-}
-
-const Buttons = () => {
-  const { styleModifier } = useStylesConf()
-  const { requestUserPermissionToFetchFonts } = useFontsOptions()
-  const onClickLoadLocalFonts = () => {
-    if (window.queryLocalFonts == undefined) {
-      alert("Sorry, seems current browser does not support loading local fonts, try Chrome please!")
-    } else {
-      requestUserPermissionToFetchFonts()
-    }
-  }
-  return (
-    <section className="mb-6">
-      <div>
-        <label className="mr-2 text-md font-bold">Apply Style Preset</label>
-
-        <div className="flex flex-row">
-          {presetsNames.map((k) => (
-            <button className="m-2 ml-0 w-40" key={k} onClick={() => styleModifier.changePresetTo(k)}>
-              {k}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      <div>
-        <label className="mr-2 text-md font-bold">Font Options</label>
-        <div>
-          <button className="m-2 ml-0 w-40" onClick={onClickLoadLocalFonts}>
-            Load System Fonts
-          </button>
-        </div>
-      </div>
-    </section>
   )
 }
