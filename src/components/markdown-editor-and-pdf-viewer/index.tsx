@@ -1,6 +1,7 @@
 import Editor from "@monaco-editor/react"
 import Markdown from "react-markdown"
 import { useMarkdownContent, useStylesConf } from "../../state"
+import { MathJax, MathJaxContext } from "better-react-mathjax"
 
 export const MarkdownEditorAndPdfViewer = () => {
   const { mdContent, saveMd2StateAndStore } = useMarkdownContent()
@@ -32,18 +33,22 @@ const PdfPart = (p: PdfPartProps) => {
       }}
     >
       <div id="md-preview" style={mdStyles.overall}>
-        <Markdown
-          components={{
-            h1: (p) => <h1 {...p} style={mdStyles.h1} />,
-            h2: (p) => <h2 {...p} style={mdStyles.h2} />,
-            h3: (p) => <h3 {...p} style={mdStyles.h3} />,
-            h4: (p) => <h4 {...p} style={mdStyles.h4} />,
-            h5: (p) => <h5 {...p} style={mdStyles.h5} />,
-            h6: (p) => <h6 {...p} style={mdStyles.h6} />,
-          }}
-        >
-          {p.markdown}
-        </Markdown>
+        <MathJaxContext>
+          <MathJax>
+            <Markdown
+              components={{
+                h1: (p) => <h1 {...p} style={mdStyles.h1} />,
+                h2: (p) => <h2 {...p} style={mdStyles.h2} />,
+                h3: (p) => <h3 {...p} style={mdStyles.h3} />,
+                h4: (p) => <h4 {...p} style={mdStyles.h4} />,
+                h5: (p) => <h5 {...p} style={mdStyles.h5} />,
+                h6: (p) => <h6 {...p} style={mdStyles.h6} />,
+              }}
+            >
+              {p.markdown}
+            </Markdown>
+          </MathJax>
+        </MathJaxContext>
       </div>
     </div>
   )

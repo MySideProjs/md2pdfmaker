@@ -16,6 +16,7 @@
     "@monaco-editor/react": "^4.6.0",
     "@mui/material": "^6.2.0",
     "@types/gtag.js": "^0.0.20",
+    "better-react-mathjax": "2.0.4-beta1",
     "jotai": "^2.10.2",
     "lodash": "^4.17.21",
     "rc-drawer": "^7.2.0",
