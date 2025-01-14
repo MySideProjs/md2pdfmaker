@@ -1,17 +1,14 @@
-import { useToggle } from "react-use"
 import { useMarkdownContent } from "../../state"
 import { reportGA } from "../../utils/ga"
-import { AppHelpModal } from "../app-help-modal"
 import iconDownload from "./download-pdf.svg"
 import iconRateReview from "./feedback-for-md-to-pdf.svg"
-import helpCenter from "./help_center.svg"
 import folderOpen from "./open-markdown-file.svg"
 
 export const HeaderButtons = () => {
   const { loadFileAndOverwriteMarkdownContent } = useMarkdownContent()
-  const [isHelpCenterModalOpen, toggleHelpCenterModal] = useToggle(false)
+  // const [isHelpCenterModalOpen, toggleHelpCenterModal] = useToggle(false)
 
-  const commonCls = "h-12 w-12 flex items-center justify-center border-0.5 border-solid border-gray cursor-pointer hover:bg-slate-200 active:bg-slate"
+  const commonCls = "h-12 w-14 flex items-center justify-center border-0.5 border-solid border-gray cursor-pointer hover:bg-slate-200 active:bg-slate"
   const openFeedbackForm = () => {
     window.open("https://forms.gle/God6MvZ6imVXE5hs5")
   }
@@ -39,7 +36,7 @@ export const HeaderButtons = () => {
         >
           <img src={folderOpen} alt="open a markdown file" />
         </div>
-
+        {/* 
         <div
           className={`${commonCls}`}
           onClick={() => {
@@ -48,7 +45,7 @@ export const HeaderButtons = () => {
           }}
         >
           <img src={helpCenter} alt="help center" />
-        </div>
+        </div> */}
 
         <div
           className={`rounded-r-xl border-l-0.5 ${commonCls}`}
@@ -61,8 +58,8 @@ export const HeaderButtons = () => {
         </div>
       </div>
 
-      {/* modals */}
-      <AppHelpModal isOpen={isHelpCenterModalOpen} onRequestClose={() => toggleHelpCenterModal(false)} />
+      {/* modals
+      <AppHelpModal isOpen={isHelpCenterModalOpen} onRequestClose={() => toggleHelpCenterModal(false)} /> */}
     </div>
   )
 }
