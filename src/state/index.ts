@@ -1,6 +1,6 @@
 import { atom, useAtom } from "jotai"
 import { debounce, uniq } from "lodash"
-import { CSSProperties, useEffect } from "react"
+import { CSSProperties, useEffect, useMemo } from "react"
 import { useEffectOnce } from "react-use"
 import { loadMdContentFromStore, loadStylesFromStore, saveMdContent2Store, saveStyles2Store } from "../store"
 import { loadMarkdownFile } from "../utils/file"
@@ -14,6 +14,7 @@ import { getPreset, PresetsNames } from "./presets"
 const fontOptionsAtom = atom(defaultFonts)
 export const useFontsOptions = () => {
   const [fontsOptions, setFontsOptions] = useAtom(fontOptionsAtom)
+  const isLoaded = useMemo(() => fontsOptions.length > defaultFonts.length, [fontsOptions, defaultFonts])
   const requestUserPermissionToFetchFonts = async () => {
     window
       .queryLocalFonts()
@@ -33,6 +34,7 @@ export const useFontsOptions = () => {
   return {
     fontsOptions,
     requestUserPermissionToFetchFonts,
+    isLoaded,
   }
 }
 

@@ -19,13 +19,13 @@ export const StyleSideBar = () => {
         }
   return (
     <div
-      className="z-1 flex items-center absolute top-30"
+      className="z-1 flex items-center absolute top-20"
       style={{
         marginLeft: left,
         transition: "margin-left .2s ease-in-out",
       }}
     >
-      <div className="shadow-[5px_5px_25px_0px_#000] h-60vh w-40vw overflow-y-scroll left-0 top-10 rounded-r-2xl bg-white">
+      <div className="shadow-[5px_5px_25px_0px_#000] h-80vh w-40vw overflow-y-scroll left-0 top-10 rounded-r-2xl bg-white">
         <MdPreviewStyleConfPart />
       </div>
       <img className="p-1 rounded-r-xl h-6 bg-#D1786A cursor-pointer" src={iconCustomStyles} onClick={onClick} />

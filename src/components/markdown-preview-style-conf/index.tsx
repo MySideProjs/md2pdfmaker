@@ -1,10 +1,18 @@
+import FontDownloadIcon from "@mui/icons-material/FontDownload"
+import Button from "@mui/material/Button"
+import Chip from "@mui/material/Chip"
+import FormControl from "@mui/material/FormControl"
+import InputLabel from "@mui/material/InputLabel"
+import MenuItem from "@mui/material/MenuItem"
+import Select from "@mui/material/Select"
+import TextField from "@mui/material/TextField"
 import { MdStyles, useFontsOptions, useStylesConf } from "../../state"
 import { defaultFontSizes } from "../../state/defaults"
-import { presetsNames } from "../../state/presets"
+import { getPreset, presetsNames } from "../../state/presets"
 
 export const MdPreviewStyleConfPart = () => {
   return (
-    <div className="p-8 font-sans text-sm">
+    <div className="p-8 text-sm font-[Montserrat]">
       <Buttons />
       <Overall />
       <HeadingLevels />
@@ -14,7 +22,7 @@ export const MdPreviewStyleConfPart = () => {
 
 const Buttons = () => {
   const { styleModifier } = useStylesConf()
-  const { requestUserPermissionToFetchFonts } = useFontsOptions()
+  const { requestUserPermissionToFetchFonts, isLoaded } = useFontsOptions()
   const onClickLoadLocalFonts = () => {
     if (window.queryLocalFonts == undefined) {
       alert("Sorry, seems current browser does not support loading local fonts, try Chrome please!")
@@ -25,23 +33,27 @@ const Buttons = () => {
   return (
     <section className="mb-6">
       <div>
-        <label className="mr-2 text-md font-bold">Apply Style Preset</label>
-
         <div className="flex flex-row">
           {presetsNames.map((k) => (
-            <button className="m-2 ml-0 w-40" key={k} onClick={() => styleModifier.changePresetTo(k)}>
-              {k}
-            </button>
+            <Chip
+              label={k}
+              size="small"
+              style={{ color: "white", backgroundColor: getPreset(k).overall?.color, width: 120, height: 30, marginRight: 10 }}
+              key={k}
+              onClick={() => styleModifier.changePresetTo(k)}
+            />
           ))}
         </div>
       </div>
 
+      <div className="mt-6" />
       <div>
-        <label className="mr-2 text-md font-bold">Font Options</label>
+        <label className="text-md font-bold">Font Options</label>
+        <div className="mb-2" />
         <div>
-          <button className="m-2 ml-0 w-40" onClick={onClickLoadLocalFonts}>
-            Load System Fonts
-          </button>
+          <Button disabled={isLoaded} startIcon={<FontDownloadIcon />} variant="contained" onClick={onClickLoadLocalFonts}>
+            {isLoaded ? "Fonts Already Loaded" : "Load System Fonts"}
+          </Button>
         </div>
       </div>
     </section>
@@ -58,37 +70,59 @@ const Overall = () => {
       </div>
 
       <section>
-        <div className="mb-2">
-          <label className="mr-2">Font Size:</label>
-          <select value={mdStyles.overall?.fontSize} onChange={(e) => styleModifier.changeGroupStyle({ fontSize: e.target.value }, "overall")}>
-            {defaultFontSizes.map((size) => (
-              <option key={size}>{size}</option>
-            ))}
-          </select>
-        </div>
-
-        <div className="mb-2">
-          <label className="mr-2">Font Family:</label>
-          <select value={mdStyles.overall?.fontFamily} onChange={(e) => styleModifier.changeGroupStyle({ fontFamily: e.target.value }, "overall", true)}>
-            {fontsOptions.map((f) => (
-              <option key={f}>{f}</option>
-            ))}
-          </select>
-        </div>
-
-        <div className="mb-2">
-          <label className="mr-2">Font Color:</label>
-          <input type="color" value={mdStyles.overall?.color} onChange={(e) => styleModifier.changeGroupStyle({ color: e.target.value }, "overall", true)} />
-        </div>
-
-        <div>
-          <label className="mr-2">Background Color:</label>
-          <input
-            type="color"
-            value={mdStyles.overall?.backgroundColor}
-            onChange={(e) => styleModifier.changeGroupStyle({ backgroundColor: e.target.value }, "overall")}
-          />
-        </div>
+        <section aria-description="overall font conf" className="flex flex-wrap">
+          <FormControl>
+            <InputLabel id="overall-font-size-helper-label">Font Size</InputLabel>
+            <Select
+              labelId="overall-font-size-helper-label"
+              label="Font Size"
+              value={mdStyles.overall?.fontSize}
+              onChange={(e) => styleModifier.changeGroupStyle({ fontSize: e.target.value }, "overall")}
+            >
+              {defaultFontSizes.map((size) => (
+                <MenuItem key={size} value={size}>
+                  {size}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+          <div className="m-2" />
+          <FormControl>
+            <InputLabel id="overall-font-family-helper-label">Font Family</InputLabel>
+            <Select
+              label="Font Family"
+              labelId='"overall-font-family-helper-label"'
+              value={mdStyles.overall?.fontFamily}
+              onChange={(e) => styleModifier.changeGroupStyle({ fontFamily: e.target.value }, "overall", true)}
+            >
+              {fontsOptions.map((f) => (
+                <MenuItem key={f} value={f}>
+                  {f}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </section>
+        <span className="mr-2" />
+        <section aria-description="overall color conf" className="flex flex-wrap">
+          <FormControl>
+            <TextField
+              label="Font Color"
+              type="color"
+              value={mdStyles.overall?.color}
+              onChange={(e) => styleModifier.changeGroupStyle({ color: e.target.value }, "overall", true)}
+            />
+          </FormControl>
+          <div className="m-2" />
+          <FormControl>
+            <TextField
+              label="Background Color"
+              type="color"
+              value={mdStyles.overall?.backgroundColor}
+              onChange={(e) => styleModifier.changeGroupStyle({ backgroundColor: e.target.value }, "overall")}
+            />
+          </FormControl>
+        </section>
       </section>
     </section>
   )
@@ -107,29 +141,47 @@ const HeadingLevels = () => {
               <label className="text-md font-bold mb-2">Heading Level {headingLevel}</label>
             </div>
 
-            <section className="flex flex-col justify-left items-baseline">
-              <div className="mb-2">
-                <label className="mr-2">Font Size:</label>
-                <select value={mdStyles[styleKey]?.fontSize} onChange={(e) => styleModifier.changeGroupStyle({ fontSize: e.target.value }, styleKey)}>
+            <section className="flex flex-wrap">
+              <FormControl>
+                <InputLabel id={`heading-${headingLevel}-font-size-helper-label`}>Font Size</InputLabel>
+                <Select
+                  labelId={`heading-${headingLevel}-font-size-helper-label`}
+                  label="Font Size"
+                  value={mdStyles[styleKey]?.fontSize}
+                  onChange={(e) => styleModifier.changeGroupStyle({ fontSize: e.target.value }, styleKey)}
+                >
                   {defaultFontSizes.map((size) => (
-                    <option key={size}>{size}</option>
+                    <MenuItem key={size} value={size}>
+                      {size}
+                    </MenuItem>
                   ))}
-                </select>
-              </div>
-
-              <div className="mb-2">
-                <label className="mr-2">Font Family:</label>
-                <select value={mdStyles[styleKey]?.fontFamily} onChange={(e) => styleModifier.changeGroupStyle({ fontFamily: e.target.value }, styleKey)}>
+                </Select>
+              </FormControl>
+              <div className="m-2" />
+              <FormControl>
+                <InputLabel id={`heading-${headingLevel}-font-family-helper-label`}>Font Family</InputLabel>
+                <Select
+                  label="Font Size"
+                  labelId={`heading-${headingLevel}-font-family-helper-label`}
+                  value={mdStyles[styleKey]?.fontFamily}
+                  onChange={(e) => styleModifier.changeGroupStyle({ fontFamily: e.target.value }, styleKey)}
+                >
                   {fontsOptions.map((f) => (
-                    <option key={f}>{f}</option>
+                    <MenuItem key={f} value={f}>
+                      {f}
+                    </MenuItem>
                   ))}
-                </select>
-              </div>
-
-              <div className="mb-2">
-                <label className="mr-2">Font Color:</label>
-                <input type="color" value={mdStyles[styleKey]?.color} onChange={(e) => styleModifier.changeGroupStyle({ color: e.target.value }, styleKey)} />
-              </div>
+                </Select>
+              </FormControl>
+              <div className="m-2" />
+              <FormControl className="mb-2">
+                <TextField
+                  label="Font Color"
+                  type="color"
+                  value={mdStyles[styleKey]?.color}
+                  onChange={(e) => styleModifier.changeGroupStyle({ color: e.target.value }, styleKey)}
+                />
+              </FormControl>
             </section>
           </section>
         )

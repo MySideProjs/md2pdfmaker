@@ -7,9 +7,11 @@ export const AppHeader = () => {
         <img className="h-8 border-gray border-1 border-solid" src={logo} alt="logo" />
         <div className="mr-4" />
         <div>
-          <h1 className="font-sans text-xl">Markdown to PDF</h1>
+          <h1 className="font-sans text-xl" style={{ fontFamily: "Montserrat" }}>
+            Markdown to PDF
+          </h1>
           <div className="mr-2" />
-          <span className="font-italic">with easy custom styles</span>
+          <span style={{ fontFamily: "ZCOOL XiaoWei" }}>with easy custom styles</span>
         </div>
       </div>
       <div className="bg-white flex">
