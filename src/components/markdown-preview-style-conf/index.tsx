@@ -74,6 +74,7 @@ const Overall = () => {
           <FormControl>
             <InputLabel id="overall-font-size-helper-label">Font Size</InputLabel>
             <Select
+              className="mr-4 mb-4"
               labelId="overall-font-size-helper-label"
               label="Font Size"
               value={mdStyles.overall?.fontSize}
@@ -86,10 +87,10 @@ const Overall = () => {
               ))}
             </Select>
           </FormControl>
-          <div className="m-2" />
           <FormControl>
             <InputLabel id="overall-font-family-helper-label">Font Family</InputLabel>
             <Select
+              className="mr-4 mb-4"
               label="Font Family"
               labelId='"overall-font-family-helper-label"'
               value={mdStyles.overall?.fontFamily}
@@ -103,17 +104,17 @@ const Overall = () => {
             </Select>
           </FormControl>
         </section>
-        <span className="mr-2" />
         <section aria-description="overall color conf" className="flex flex-wrap">
           <FormControl>
-            <TextField
-              label="Font Color"
-              type="color"
-              value={mdStyles.overall?.color}
-              onChange={(e) => styleModifier.changeGroupStyle({ color: e.target.value }, "overall", true)}
-            />
+            <div className="mr-4 mb-4">
+              <TextField
+                label="Font Color"
+                type="color"
+                value={mdStyles.overall?.color}
+                onChange={(e) => styleModifier.changeGroupStyle({ color: e.target.value }, "overall", true)}
+              />
+            </div>
           </FormControl>
-          <div className="m-2" />
           <FormControl>
             <TextField
               label="Background Color"
