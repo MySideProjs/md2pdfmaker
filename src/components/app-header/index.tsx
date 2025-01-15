@@ -1,8 +1,15 @@
+import { useIsWide } from "../../hooks"
 import { HeaderButtons } from "../header-buttons"
 import logo from "./logo.png"
 export const AppHeader = () => {
+  const isWide = useIsWide()
   return (
-    <header className="mb-4 flex flex-row items-start justify-between">
+    <header
+      className="mb-4 flex flex-row items-start justify-between"
+      style={{
+        flexDirection: isWide ? "row" : "column",
+      }}
+    >
       <div className="flex items-center">
         <img className="h-8 border-gray border-1 border-solid" src={logo} alt="logo" />
         <div className="mr-4" />

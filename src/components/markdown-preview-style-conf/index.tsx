@@ -33,12 +33,12 @@ const Buttons = () => {
   return (
     <section className="mb-6">
       <div>
-        <div className="flex flex-row">
+        <div className="flex flex-row flex-wrap">
           {presetsNames.map((k) => (
             <Chip
               label={k}
               size="small"
-              style={{ color: "white", backgroundColor: getPreset(k).overall?.color, width: 120, height: 30, marginRight: 10 }}
+              style={{ color: "white", backgroundColor: getPreset(k).overall?.color, width: 120, height: 30, marginRight: 10, marginBottom: 2 }}
               key={k}
               onClick={() => styleModifier.changePresetTo(k)}
             />
@@ -48,11 +48,11 @@ const Buttons = () => {
 
       <div className="mt-6" />
       <div>
-        <label className="text-md font-bold">Font Options</label>
+        <label className="text-md font-bold">Load System Font</label>
         <div className="mb-2" />
         <div>
           <Button disabled={isLoaded} startIcon={<FontDownloadIcon />} variant="contained" onClick={onClickLoadLocalFonts}>
-            {isLoaded ? "Fonts Already Loaded" : "Load System Fonts"}
+            {isLoaded ? "Loaded" : "Load"}
           </Button>
         </div>
       </div>
@@ -145,6 +145,7 @@ const HeadingLevels = () => {
               <FormControl>
                 <InputLabel id={`heading-${headingLevel}-font-size-helper-label`}>Font Size</InputLabel>
                 <Select
+                  className="mr-4 mb-4"
                   labelId={`heading-${headingLevel}-font-size-helper-label`}
                   label="Font Size"
                   value={mdStyles[styleKey]?.fontSize}
@@ -157,10 +158,11 @@ const HeadingLevels = () => {
                   ))}
                 </Select>
               </FormControl>
-              <div className="m-2" />
+
               <FormControl>
                 <InputLabel id={`heading-${headingLevel}-font-family-helper-label`}>Font Family</InputLabel>
                 <Select
+                  className="mr-4 mb-4"
                   label="Font Size"
                   labelId={`heading-${headingLevel}-font-family-helper-label`}
                   value={mdStyles[styleKey]?.fontFamily}
@@ -173,8 +175,7 @@ const HeadingLevels = () => {
                   ))}
                 </Select>
               </FormControl>
-              <div className="m-2" />
-              <FormControl className="mb-2">
+              <FormControl>
                 <TextField
                   label="Font Color"
                   type="color"

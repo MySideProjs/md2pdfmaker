@@ -4,6 +4,7 @@ import "./App.css"
 import { AppHeader } from "./components/app-header"
 import { MarkdownEditorAndPdfViewer } from "./components/markdown-editor-and-pdf-viewer"
 import { StyleSideBar } from "./components/markdown-preview-style-sidebar"
+import { useIsWide } from "./hooks"
 
 const theme = createTheme({
   components: {
@@ -32,11 +33,12 @@ const theme = createTheme({
 })
 
 function App() {
+  const isWide = useIsWide()
   return (
     <ThemeProvider theme={theme}>
       <AppHeader />
       <MarkdownEditorAndPdfViewer />
-      <StyleSideBar />
+      {isWide && <StyleSideBar />}
     </ThemeProvider>
   )
 }

@@ -1,13 +1,43 @@
 import Editor from "@monaco-editor/react"
-import Markdown from "react-markdown"
-import { useMarkdownContent, useStylesConf } from "../../state"
 import { MathJax, MathJaxContext } from "better-react-mathjax"
+import Markdown from "react-markdown"
+import { useIsWide } from "../../hooks"
+import { useMarkdownContent, useStylesConf } from "../../state"
+import Tabs from "@mui/material/Tabs"
+import Tab from "@mui/material/Tab"
+import { useState } from "react"
 
 export const MarkdownEditorAndPdfViewer = () => {
+  const isWide = useIsWide()
   const { mdContent, saveMd2StateAndStore } = useMarkdownContent()
-  const commonFrame = `flex-1 shadow-xl h-80vh border-1 border-stone border-solid`
+  const [currTab, setCurrTab] = useState<0 | 1>(0)
+
+  // For mobile
+  if (!isWide) {
+    return (
+      <>
+        <Tabs value={currTab} onChange={(_, tabIdx) => setCurrTab(tabIdx)} variant="fullWidth">
+          <Tab label="Edit" />
+          <Tab label="Preview" />
+        </Tabs>
+        <div className="h-86vh overflow-scroll">
+          {currTab === 0 && <Editor theme="vs-dark" onChange={(c) => saveMd2StateAndStore(c || "")} value={mdContent} />}
+          {currTab === 1 && <PdfPart markdown={mdContent} />}
+        </div>
+      </>
+    )
+  }
+
+  // For laptop
+  const commonFrame = `flex-1 shadow-xl border-1 border-stone border-solid h-84vh`
   return (
-    <div className="grid grid-auto-flow-col grid-auto-cols-[calc(50vw-3rem)] mb-4">
+    <div
+      className="grid grid-auto-flow-col grid-auto-cols-[calc(50vw-3rem)] mb-4"
+      style={{
+        display: "flex",
+        flexDirection: isWide ? "row" : "column",
+      }}
+    >
       <div className={`${commonFrame} rounded-r-none border-r-0.5`}>
         <Editor theme="vs-dark" onChange={(c) => saveMd2StateAndStore(c || "")} value={mdContent} />
       </div>
@@ -20,7 +50,6 @@ export const MarkdownEditorAndPdfViewer = () => {
 
 type PdfPartProps = {
   markdown: string
-  className?: string
 }
 const PdfPart = (p: PdfPartProps) => {
   const { mdStyles } = useStylesConf()
