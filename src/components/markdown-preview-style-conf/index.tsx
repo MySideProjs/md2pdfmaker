@@ -1,4 +1,5 @@
 import FontDownloadIcon from "@mui/icons-material/FontDownload"
+import { ToggleButton, ToggleButtonGroup } from "@mui/material"
 import Button from "@mui/material/Button"
 import Chip from "@mui/material/Chip"
 import FormControl from "@mui/material/FormControl"
@@ -6,23 +7,24 @@ import InputLabel from "@mui/material/InputLabel"
 import MenuItem from "@mui/material/MenuItem"
 import Select from "@mui/material/Select"
 import TextField from "@mui/material/TextField"
-import { MdStyles, useFontsOptions, useStylesConf } from "../../state"
+import { MdStyles, PreviewMode, useFontsOptions, usePreviewMode, useStylesConf } from "../../state"
 import { defaultFontSizes } from "../../state/defaults"
 import { getPreset, presetsNames } from "../../state/presets"
 
 export const MdPreviewStyleConfPart = () => {
   return (
     <div className="p-8 text-sm font-[Montserrat]">
-      <Buttons />
+      <Basics />
       <Overall />
       <HeadingLevels />
     </div>
   )
 }
 
-const Buttons = () => {
+const Basics = () => {
   const { styleModifier } = useStylesConf()
   const { requestUserPermissionToFetchFonts, isLoaded } = useFontsOptions()
+  const { previewMode, setPreviewMode } = usePreviewMode()
   const onClickLoadLocalFonts = () => {
     if (window.queryLocalFonts == undefined) {
       alert("Sorry, seems current browser does not support loading local fonts, try Chrome please!")
@@ -32,6 +34,7 @@ const Buttons = () => {
   }
   return (
     <section className="mb-6">
+      {/* Themes */}
       <div>
         <div className="flex flex-row flex-wrap">
           {presetsNames.map((k) => (
@@ -46,6 +49,7 @@ const Buttons = () => {
         </div>
       </div>
 
+      {/* Local fonts */}
       <div className="mt-6" />
       <div>
         <label className="text-md font-bold">Load System Font</label>
@@ -54,6 +58,27 @@ const Buttons = () => {
           <Button disabled={isLoaded} startIcon={<FontDownloadIcon />} variant="contained" onClick={onClickLoadLocalFonts}>
             {isLoaded ? "Loaded" : "Load"}
           </Button>
+        </div>
+      </div>
+      <div className="mt-6" />
+
+      {/* Modes */}
+      <div>
+        <label className="text-md font-bold">Load System Font</label>
+        <div className="mb-2" />
+        <div>
+          <ToggleButtonGroup
+            color="primary"
+            value={previewMode}
+            exclusive
+            onChange={(_, v: PreviewMode) => {
+              setPreviewMode(v)
+            }}
+            aria-label="Platform"
+          >
+            <ToggleButton value="slides">Slides</ToggleButton>
+            <ToggleButton value="doc">Doc</ToggleButton>
+          </ToggleButtonGroup>
         </div>
       </div>
     </section>

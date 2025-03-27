@@ -2,10 +2,12 @@ import Editor from "@monaco-editor/react"
 import { MathJax, MathJaxContext } from "better-react-mathjax"
 import Markdown from "react-markdown"
 import { useIsWide } from "../../hooks"
-import { useMarkdownContent, useStylesConf } from "../../state"
+import { MdStyles, useMarkdownContent, usePreviewMode, useStylesConf } from "../../state"
 import Tabs from "@mui/material/Tabs"
 import Tab from "@mui/material/Tab"
 import { useState } from "react"
+import { Marp } from "@marp-team/marp-core"
+import styleToCss from "style-object-to-css-string"
 
 export const MarkdownEditorAndPdfViewer = () => {
   const isWide = useIsWide()
@@ -53,6 +55,7 @@ type PdfPartProps = {
 }
 const PdfPart = (p: PdfPartProps) => {
   const { mdStyles } = useStylesConf()
+  const { previewMode } = usePreviewMode()
 
   return (
     <div
@@ -61,24 +64,86 @@ const PdfPart = (p: PdfPartProps) => {
         backgroundColor: mdStyles.overall?.backgroundColor,
       }}
     >
-      <div id="md-preview" style={mdStyles.overall}>
-        <MathJaxContext>
-          <MathJax>
-            <Markdown
-              components={{
-                h1: (p) => <h1 {...p} style={mdStyles.h1} />,
-                h2: (p) => <h2 {...p} style={mdStyles.h2} />,
-                h3: (p) => <h3 {...p} style={mdStyles.h3} />,
-                h4: (p) => <h4 {...p} style={mdStyles.h4} />,
-                h5: (p) => <h5 {...p} style={mdStyles.h5} />,
-                h6: (p) => <h6 {...p} style={mdStyles.h6} />,
-              }}
-            >
-              {p.markdown}
-            </Markdown>
-          </MathJax>
-        </MathJaxContext>
-      </div>
+      {previewMode === "slides" ? (
+        <MarpPart markdown={p.markdown} />
+      ) : (
+        <div id="md-preview" style={mdStyles.overall}>
+          <MathJaxContext>
+            <MathJax>
+              <Markdown
+                components={{
+                  h1: (p) => <h1 {...p} style={mdStyles.h1} />,
+                  h2: (p) => <h2 {...p} style={mdStyles.h2} />,
+                  h3: (p) => <h3 {...p} style={mdStyles.h3} />,
+                  h4: (p) => <h4 {...p} style={mdStyles.h4} />,
+                  h5: (p) => <h5 {...p} style={mdStyles.h5} />,
+                  h6: (p) => <h6 {...p} style={mdStyles.h6} />,
+                }}
+              >
+                {p.markdown}
+              </Markdown>
+            </MathJax>
+          </MathJaxContext>
+        </div>
+      )}
     </div>
   )
+}
+
+const MarpPart = (p: { markdown: string }) => {
+  const { mdStyles } = useStylesConf()
+  const { html } = new Marp().render(p.markdown)
+  return (
+    <div
+      id="marp-part"
+      dangerouslySetInnerHTML={{
+        __html: html + `<style>${buildMarpThemeFromMdStyles(mdStyles)}</style>`,
+      }}
+    ></div>
+  )
+}
+
+const buildMarpThemeFromMdStyles = (mdStyles: MdStyles) => {
+  const h1Css = styleToCss(mdStyles.h1)
+  const h2Css = styleToCss(mdStyles.h2)
+  const h3Css = styleToCss(mdStyles.h3)
+  const h4Css = styleToCss(mdStyles.h4)
+  const h5Css = styleToCss(mdStyles.h5)
+  const h6Css = styleToCss(mdStyles.h6)
+  return `
+  /* @theme marpit-theme */
+  #marp-part section {
+    width: 960px;
+    height: 540px;
+    padding: 40px;
+    border-color: black;
+    border-radius: 2px;
+    border-style: solid;
+    background-color: ${mdStyles.overall?.backgroundColor};
+  }
+
+  #marp-part h1 {
+    ${h1Css}
+  }
+
+  #marp-part h2 {
+    ${h2Css}
+  }
+
+  #marp-part h3 {
+    ${h3Css}
+  }
+
+  #marp-part h4 {
+    ${h4Css}
+  }
+
+  #marp-part h5 {
+    ${h5Css}
+  }
+
+  #marp-part h6 {
+    ${h6Css}
+  }
+  `
 }

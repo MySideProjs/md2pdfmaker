@@ -39,6 +39,19 @@ export const useFontsOptions = () => {
 }
 
 /* -------------------------------------------------------------------------- */
+/*                                Preview Mode                                */
+/* -------------------------------------------------------------------------- */
+export type PreviewMode = "slides" | "doc"
+const previewModeAtom = atom<PreviewMode>("doc")
+export const usePreviewMode = () => {
+  const [previewMode, setPreviewMode] = useAtom(previewModeAtom)
+  return {
+    previewMode,
+    setPreviewMode,
+  }
+}
+
+/* -------------------------------------------------------------------------- */
 /*                               PDF Style Modifier                           */
 /* -------------------------------------------------------------------------- */
 
