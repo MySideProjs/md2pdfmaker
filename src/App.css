@@ -4,6 +4,10 @@
     visibility: hidden;
     -webkit-print-color-adjust: exact;
   }
+  #marp-part {
+    width: 100vw;
+    height: 100vh;
+  }
   #md-preview {
     visibility: visible;
     position: absolute;

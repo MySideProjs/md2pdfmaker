@@ -64,10 +64,12 @@ const PdfPart = (p: PdfPartProps) => {
         backgroundColor: mdStyles.overall?.backgroundColor,
       }}
     >
-      {previewMode === "slides" ? (
-        <MarpPart markdown={p.markdown} />
-      ) : (
-        <div id="md-preview" style={mdStyles.overall}>
+      <div id="md-preview" style={mdStyles.overall}>
+        {previewMode === "slides" ? (
+          <div id="marp-part">
+            <MarpPart markdown={p.markdown} />
+          </div>
+        ) : (
           <MathJaxContext>
             <MathJax>
               <Markdown
@@ -84,8 +86,9 @@ const PdfPart = (p: PdfPartProps) => {
               </Markdown>
             </MathJax>
           </MathJaxContext>
-        </div>
-      )}
+        )}
+      </div>
+      )
     </div>
   )
 }
@@ -113,8 +116,7 @@ const buildMarpThemeFromMdStyles = (mdStyles: MdStyles) => {
   return `
   /* @theme marpit-theme */
   #marp-part section {
-    width: 960px;
-    height: 540px;
+    aspect-ratio: 9 / 16; 
     padding: 40px;
     border-color: black;
     border-radius: 2px;
