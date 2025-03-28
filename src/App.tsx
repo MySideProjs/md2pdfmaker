@@ -1,10 +1,10 @@
 import ThemeProvider from "@mui/material/styles/ThemeProvider"
 import createTheme from "@mui/material/styles/createTheme"
+import { BrowserRouter, Route, Routes } from "react-router"
 import "./App.css"
 import { AppHeader } from "./components/app-header"
-import { MarkdownEditorAndPdfViewer } from "./components/markdown-editor-and-pdf-viewer"
-import { StyleSideBar } from "./components/markdown-preview-style-sidebar"
-import { useIsWide } from "./hooks"
+import { Docs } from "./pages/docs-page"
+import { Home } from "./pages/home-page"
 
 const theme = createTheme({
   components: {
@@ -33,12 +33,15 @@ const theme = createTheme({
 })
 
 function App() {
-  const isWide = useIsWide()
   return (
     <ThemeProvider theme={theme}>
-      <AppHeader />
-      <MarkdownEditorAndPdfViewer />
-      {isWide && <StyleSideBar />}
+      <BrowserRouter>
+        <AppHeader />
+        <Routes>
+          <Route path="/" element={<Home />}></Route>
+          <Route path="/docs" element={<Docs />}></Route>
+        </Routes>
+      </BrowserRouter>
     </ThemeProvider>
   )
 }

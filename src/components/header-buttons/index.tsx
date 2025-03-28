@@ -1,23 +1,23 @@
+import ArticleIcon from "@mui/icons-material/Article"
 import IconDownload from "@mui/icons-material/Download"
 import IconFolderOpen from "@mui/icons-material/FolderOpen"
 import IconPalette from "@mui/icons-material/Palette"
-import IconFeedback from "@mui/icons-material/Feedback"
-import Fab from "@mui/material/Fab"
 import Button from "@mui/material/Button"
+import Fab from "@mui/material/Fab"
 import { CSSProperties } from "react"
+import { useToggle } from "react-use"
 import { useIsWide } from "../../hooks"
 import { useMarkdownContent } from "../../state"
 import { reportGA } from "../../utils/ga"
-import { useToggle } from "react-use"
 import { StyleDrawer } from "../markdown-preview-style-drawer"
-import { IconButton } from "@mui/material"
+import { useNavigate } from "react-router"
 
 export const HeaderButtons = () => {
   const isWide = useIsWide()
   const [isStyleDrawerOpen, toggleStyleDrawer] = useToggle(false)
   const buttonStyle: CSSProperties = { backgroundColor: "#524C42", marginRight: 10 }
   const { loadFileAndOverwriteMarkdownContent } = useMarkdownContent()
-
+  const nav = useNavigate()
   const onDownload = () => {
     window.print()
     reportGA("clicked_download_pdf")
@@ -27,9 +27,13 @@ export const HeaderButtons = () => {
     reportGA("import_local_md")
   }
 
-  const onFeedback = () => {
-    window.open("https://forms.gle/God6MvZ6imVXE5hs5")
-    reportGA("open_help_center")
+  // const onFeedback = () => {
+  //   window.open("https://forms.gle/God6MvZ6imVXE5hs5")
+  //   reportGA("open_help_center")
+  // }
+
+  const onGotoDocsPage = () => {
+    nav("/docs")
   }
 
   // For mobile
@@ -48,9 +52,9 @@ export const HeaderButtons = () => {
           <IconPalette />
         </Fab>
         <div className="m-1" />
-        <Fab onClick={onFeedback}>
+        {/* <Fab onClick={onFeedback}>
           <IconFeedback />
-        </Fab>
+        </Fab> */}
         <StyleDrawer open={isStyleDrawerOpen} onClose={() => toggleStyleDrawer(false)} />
       </div>
     )
@@ -69,9 +73,13 @@ export const HeaderButtons = () => {
           Import
         </Button>
 
-        <IconButton aria-label="feedback" style={{ ...buttonStyle, marginRight: 0 }} onClick={onFeedback}>
+        <Button style={{ ...buttonStyle }} variant="contained" startIcon={<ArticleIcon />} onClick={onGotoDocsPage}>
+          Tutorial
+        </Button>
+
+        {/* <IconButton aria-label="feedback" style={{ ...buttonStyle, marginRight: 0 }} onClick={onFeedback}>
           <IconFeedback sx={{ color: "white" }} />
-        </IconButton>
+        </IconButton> */}
       </div>
     </div>
   )

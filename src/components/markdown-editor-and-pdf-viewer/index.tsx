@@ -54,7 +54,7 @@ export const MarkdownEditorAndPdfViewer = () => {
 type PdfPartProps = {
   markdown: string
 }
-const PdfPart = (p: PdfPartProps) => {
+export const PdfPart = (p: PdfPartProps) => {
   const { mdStyles } = useStylesConf()
   const { isSlides } = usePreviewMode()
 
