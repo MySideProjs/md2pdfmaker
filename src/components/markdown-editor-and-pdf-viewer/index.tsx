@@ -9,6 +9,7 @@ import Markdown from "react-markdown"
 import styleToCss from "style-object-to-css-string"
 import { useIsWide } from "../../hooks"
 import { MdStyles, useMarkdownContent, usePreviewMode, useStylesConf } from "../../state"
+import { pick } from "lodash"
 
 export const MarkdownEditorAndPdfViewer = () => {
   const isWide = useIsWide()
@@ -59,7 +60,16 @@ export const PdfPart = (p: PdfPartProps) => {
   const { isSlides } = usePreviewMode()
 
   return (
-    <div className={`flex flex-col min-h-100% overflow-scroll`}>
+    <div
+      className={`flex flex-col min-h-100% overflow-scroll`}
+      style={
+        isSlides
+          ? {}
+          : {
+              backgroundColor: mdStyles.overall?.backgroundColor,
+            }
+      }
+    >
       <div id="md-preview" style={isSlides ? {} : mdStyles.overall}>
         <If condition={isSlides}>
           <Then>
@@ -116,6 +126,7 @@ const buildMarpThemeFromMdStyles = (mdStyles: MdStyles) => {
   const h4Css = styleToCss(mdStyles.h4)
   const h5Css = styleToCss(mdStyles.h5)
   const h6Css = styleToCss(mdStyles.h6)
+  const pCss = styleToCss(pick(mdStyles.overall, ["fontSize", "fontFamily", "color"]))
   return `
   /* @theme marpit-theme */
   #marp-part section {
@@ -146,6 +157,10 @@ const buildMarpThemeFromMdStyles = (mdStyles: MdStyles) => {
 
   #marp-part h6 {
     ${h6Css}
+  }
+
+  #marp-part p {
+    ${pCss}
   }
 
   `
