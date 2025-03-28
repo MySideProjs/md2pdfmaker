@@ -1,13 +1,14 @@
+import { Marp } from "@marp-team/marp-core"
 import Editor from "@monaco-editor/react"
+import Tab from "@mui/material/Tab"
+import Tabs from "@mui/material/Tabs"
 import { MathJax, MathJaxContext } from "better-react-mathjax"
+import { useState } from "react"
+import { Else, If, Then } from "react-if"
 import Markdown from "react-markdown"
+import styleToCss from "style-object-to-css-string"
 import { useIsWide } from "../../hooks"
 import { MdStyles, useMarkdownContent, usePreviewMode, useStylesConf } from "../../state"
-import Tabs from "@mui/material/Tabs"
-import Tab from "@mui/material/Tab"
-import { useState } from "react"
-import { Marp } from "@marp-team/marp-core"
-import styleToCss from "style-object-to-css-string"
 
 export const MarkdownEditorAndPdfViewer = () => {
   const isWide = useIsWide()
@@ -55,54 +56,64 @@ type PdfPartProps = {
 }
 const PdfPart = (p: PdfPartProps) => {
   const { mdStyles } = useStylesConf()
-  const { previewMode } = usePreviewMode()
+  const { isSlides } = usePreviewMode()
 
   return (
     <div
       className={`flex flex-col min-h-100% overflow-scroll p-40px`}
-      style={{
-        backgroundColor: mdStyles.overall?.backgroundColor,
-      }}
+      style={
+        isSlides
+          ? {}
+          : {
+              backgroundColor: mdStyles.overall?.backgroundColor,
+            }
+      }
     >
-      <div id="md-preview" style={mdStyles.overall}>
-        {previewMode === "slides" ? (
-          <div id="marp-part">
-            <MarpPart markdown={p.markdown} />
-          </div>
-        ) : (
-          <MathJaxContext>
-            <MathJax>
-              <Markdown
-                components={{
-                  h1: (p) => <h1 {...p} style={mdStyles.h1} />,
-                  h2: (p) => <h2 {...p} style={mdStyles.h2} />,
-                  h3: (p) => <h3 {...p} style={mdStyles.h3} />,
-                  h4: (p) => <h4 {...p} style={mdStyles.h4} />,
-                  h5: (p) => <h5 {...p} style={mdStyles.h5} />,
-                  h6: (p) => <h6 {...p} style={mdStyles.h6} />,
-                }}
-              >
-                {p.markdown}
-              </Markdown>
-            </MathJax>
-          </MathJaxContext>
-        )}
+      <div id="md-preview" style={isSlides ? {} : mdStyles.overall}>
+        <If condition={isSlides}>
+          <Then>
+            <div id="marp-part">
+              <MarpPart markdown={p.markdown} />
+            </div>
+          </Then>
+          <Else>
+            <MathJaxContext>
+              <MathJax>
+                <Markdown
+                  components={{
+                    h1: (p) => <h1 {...p} style={mdStyles.h1} />,
+                    h2: (p) => <h2 {...p} style={mdStyles.h2} />,
+                    h3: (p) => <h3 {...p} style={mdStyles.h3} />,
+                    h4: (p) => <h4 {...p} style={mdStyles.h4} />,
+                    h5: (p) => <h5 {...p} style={mdStyles.h5} />,
+                    h6: (p) => <h6 {...p} style={mdStyles.h6} />,
+                  }}
+                >
+                  {p.markdown}
+                </Markdown>
+              </MathJax>
+            </MathJaxContext>
+          </Else>
+        </If>
       </div>
-      )
     </div>
   )
 }
 
 const MarpPart = (p: { markdown: string }) => {
   const { mdStyles } = useStylesConf()
-  const { html } = new Marp().render(p.markdown)
+  const { html, css } = new Marp().render(p.markdown)
   return (
     <div
       id="marp-part"
       dangerouslySetInnerHTML={{
-        __html: html + `<style>${buildMarpThemeFromMdStyles(mdStyles)}</style>`,
+        __html:
+          html +
+          //
+          `<style>${buildMarpThemeFromMdStyles(mdStyles)}</style>` +
+          `<style>${css}</style>`,
       }}
-    ></div>
+    />
   )
 }
 
@@ -116,12 +127,9 @@ const buildMarpThemeFromMdStyles = (mdStyles: MdStyles) => {
   return `
   /* @theme marpit-theme */
   #marp-part section {
-    aspect-ratio: 9 / 16; 
-    padding: 40px;
-    border-color: black;
-    border-radius: 2px;
-    border-style: solid;
     background-color: ${mdStyles.overall?.backgroundColor};
+    fontFamily: ${mdStyles.overall?.fontFamily};
+    color: ${mdStyles.overall?.color};
   }
 
   #marp-part h1 {
@@ -147,5 +155,6 @@ const buildMarpThemeFromMdStyles = (mdStyles: MdStyles) => {
   #marp-part h6 {
     ${h6Css}
   }
+
   `
 }

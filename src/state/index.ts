@@ -1,8 +1,8 @@
 import { atom, useAtom } from "jotai"
+import { atomWithStorage } from "jotai/utils"
 import { debounce, uniq } from "lodash"
 import { CSSProperties, useEffect, useMemo } from "react"
 import { useEffectOnce } from "react-use"
-import { loadMdContentFromStore, loadStylesFromStore, saveMdContent2Store, saveStyles2Store } from "../store"
 import { loadMarkdownFile } from "../utils/file"
 import { defaultFonts } from "./defaults"
 import { getPreset, PresetsNames } from "./presets"
@@ -14,7 +14,7 @@ import { getPreset, PresetsNames } from "./presets"
 const fontOptionsAtom = atom(defaultFonts)
 export const useFontsOptions = () => {
   const [fontsOptions, setFontsOptions] = useAtom(fontOptionsAtom)
-  const isLoaded = useMemo(() => fontsOptions.length > defaultFonts.length, [fontsOptions, defaultFonts])
+  const isLoaded = useMemo(() => fontsOptions.length > defaultFonts.length, [fontsOptions])
   const requestUserPermissionToFetchFonts = async () => {
     window
       .queryLocalFonts()
@@ -42,12 +42,14 @@ export const useFontsOptions = () => {
 /*                                Preview Mode                                */
 /* -------------------------------------------------------------------------- */
 export type PreviewMode = "slides" | "doc"
-const previewModeAtom = atom<PreviewMode>("doc")
+const previewModeAtom = atomWithStorage<PreviewMode>("preview-mode", "doc")
 export const usePreviewMode = () => {
   const [previewMode, setPreviewMode] = useAtom(previewModeAtom)
   return {
     previewMode,
     setPreviewMode,
+    isDoc: useMemo(() => previewMode === "doc", [previewMode]),
+    isSlides: useMemo(() => previewMode === "slides", [previewMode]),
   }
 }
 
@@ -65,7 +67,7 @@ export type MdStyles = {
   overall?: CSSProperties
 }
 
-const stylesConfAtom = atom(loadStylesFromStore() ?? getPreset("Default"))
+const stylesConfAtom = atomWithStorage("md-styles", getPreset("Default"))
 const styleConfModalOpenStatusAtom = atom(false)
 export const useStylesConf = () => {
   const [mdStyles, setMdStyles] = useAtom(stylesConfAtom)
@@ -77,10 +79,6 @@ export const useStylesConf = () => {
       printPageStyle.innerHTML = `@page {background-color: ${mdStyles.overall?.backgroundColor}}`
     }
   }, [mdStyles.overall?.backgroundColor])
-
-  useEffect(() => {
-    saveStyles2Store(mdStyles)
-  }, [mdStyles])
 
   /* * * * * * * * * * * * * *  // Add style modifiers below * * * * * * * * * * * * * * */
 
@@ -127,16 +125,10 @@ export const useStylesConf = () => {
 /*                              Markdown Content                              */
 /* -------------------------------------------------------------------------- */
 
-const mdContentAtom = atom("")
+const mdContentAtom = atomWithStorage("md", "")
 export const useMarkdownContent = () => {
   const [mdContent, setMdContent] = useAtom(mdContentAtom)
-  const saveMd2StateAndStore = (md: string) => {
-    setMdContent(md)
-    saveMdContent2Store(md)
-  }
-  useEffectOnce(() => {
-    setMdContent(loadMdContentFromStore() ?? "")
-  })
+  const saveMd2StateAndStore = (md: string) => setMdContent(md)
 
   const loadFileAndOverwriteMarkdownContent = () => {
     loadMarkdownFile((f) => {
