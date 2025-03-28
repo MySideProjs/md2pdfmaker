@@ -2,8 +2,10 @@
 @media print {
   body {
     visibility: hidden;
+    print-color-adjust: exact;
     -webkit-print-color-adjust: exact;
   }
+
   #marp-part {
     width: 100vw;
     height: 100vh;
@@ -16,6 +18,9 @@
   }
 }
 
+body {
+  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
+}
 /* button style */
 button {
   font-size: 0.8rem;

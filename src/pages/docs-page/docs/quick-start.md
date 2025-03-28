@@ -1,24 +1,13 @@
 # Quick Start
+---
+## Writing Content
 
-## Introduction
-
-This site https://markdown-to-pdf.com provides functionality to utilizing markdown (a lightweight markup language) to create PDF files.
-
-## Quick Start
-
-## Write you markdown content
-
-If you are not familiar with markdown syntax, please read the 'Basic Markdown Tutorial' part first.
-
+Compose your content using Markdown syntax or import existing documents from your local drive.
 
 ## Styling
 
-markdown-to-pdf.com provides
+Customize the appearance of your document using the style configuration sidebar. Adjust settings to match your preferences.
 
-## Slide Mode
+## Exporting Your Work
 
-You may notice there is an Mode option in the sidebar, which may change the
-
-# Print setting
-
-in order to get
+Simply click "Export" to generate and save your final document.

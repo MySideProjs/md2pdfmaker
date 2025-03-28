@@ -3,12 +3,14 @@ import { isEmpty } from "lodash"
 import { useState } from "react"
 import { If, Then } from "react-if"
 import Markdown from "react-markdown"
-import basic_markdown_tutorial from "./docs/basic-markdown-tutorial.md"
 import { useEffectOnce } from "react-use"
+import doc_basic_markdown_tutorial from "./docs/basic-markdown-tutorial.md"
+import doc_quick_start from "./docs/quick-start.md"
+import doc_faq from "./docs/faq.md"
 
 export const Docs = () => {
   const [docContent, setDocCont] = useState("")
-  useEffectOnce(() => loadMdContent(basic_markdown_tutorial, setDocCont))
+  useEffectOnce(() => loadMdContent(doc_quick_start, setDocCont))
   return (
     <div className="flex flex-row">
       <Card className="mr-4">
@@ -16,18 +18,27 @@ export const Docs = () => {
           <List>
             <ListItemButton
               onClick={() => {
-                loadMdContent(basic_markdown_tutorial, setDocCont)
+                loadMdContent(doc_quick_start, setDocCont)
+              }}
+            >
+              Quick Start
+            </ListItemButton>
+
+            <ListItemButton
+              onClick={() => {
+                loadMdContent(doc_basic_markdown_tutorial, setDocCont)
               }}
             >
               Basic Markdown Tutorial
             </ListItemButton>
-            {/* <ListItemButton
-            onClick={() => {
-              loadMdContent(quick_start, setDocCont)
-            }}
-          >
-            Quick Start
-          </ListItemButton> */}
+
+            <ListItemButton
+              onClick={() => {
+                loadMdContent(doc_faq, setDocCont)
+              }}
+            >
+              FAQs
+            </ListItemButton>
           </List>
         </div>
       </Card>
