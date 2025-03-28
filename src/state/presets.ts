@@ -70,13 +70,14 @@ const mergeStyleWithCommon = (
     defaultFontFamily: ArrayValues<typeof defaultFonts>
   },
 ): MdStyles => {
+  const baseFontSizeIdx = 2
   return {
-    overall: { fontSize: defaultFontSizes[2], color: extra.defaultFontColor, fontFamily: extra.defaultFontFamily, ...mdStyles.overall },
-    h6: { fontSize: defaultFontSizes[3], color: extra.defaultFontColor, fontFamily: extra.defaultFontFamily, ...mdStyles.h6 },
-    h5: { fontSize: defaultFontSizes[4], color: extra.defaultFontColor, fontFamily: extra.defaultFontFamily, ...mdStyles.h5 },
-    h4: { fontSize: defaultFontSizes[5], color: extra.defaultFontColor, fontFamily: extra.defaultFontFamily, ...mdStyles.h4 },
-    h3: { fontSize: defaultFontSizes[6], color: extra.defaultFontColor, fontFamily: extra.defaultFontFamily, ...mdStyles.h3 },
-    h2: { fontSize: defaultFontSizes[7], color: extra.defaultFontColor, fontFamily: extra.defaultFontFamily, ...mdStyles.h2 },
-    h1: { fontSize: defaultFontSizes[8], color: extra.defaultFontColor, fontFamily: extra.defaultFontFamily, ...mdStyles.h1 },
+    overall: { fontSize: defaultFontSizes[baseFontSizeIdx + 0], color: extra.defaultFontColor, fontFamily: extra.defaultFontFamily, ...mdStyles.overall },
+    h6: { fontSize: defaultFontSizes[baseFontSizeIdx + 1], color: extra.defaultFontColor, fontFamily: extra.defaultFontFamily, ...mdStyles.h6 },
+    h5: { fontSize: defaultFontSizes[baseFontSizeIdx + 2], color: extra.defaultFontColor, fontFamily: extra.defaultFontFamily, ...mdStyles.h5 },
+    h4: { fontSize: defaultFontSizes[baseFontSizeIdx + 3], color: extra.defaultFontColor, fontFamily: extra.defaultFontFamily, ...mdStyles.h4 },
+    h3: { fontSize: defaultFontSizes[baseFontSizeIdx + 4], color: extra.defaultFontColor, fontFamily: extra.defaultFontFamily, ...mdStyles.h3 },
+    h2: { fontSize: defaultFontSizes[baseFontSizeIdx + 5], color: extra.defaultFontColor, fontFamily: extra.defaultFontFamily, ...mdStyles.h2 },
+    h1: { fontSize: defaultFontSizes[baseFontSizeIdx + 6], color: extra.defaultFontColor, fontFamily: extra.defaultFontFamily, ...mdStyles.h1 },
   }
 }
