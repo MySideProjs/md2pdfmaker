@@ -64,7 +64,7 @@ const Basics = () => {
 
       {/* Modes */}
       <div>
-        <label className="text-md font-bold">Load System Font</label>
+        <label className="text-md font-bold">Mode</label>
         <div className="mb-2" />
         <div>
           <ToggleButtonGroup
