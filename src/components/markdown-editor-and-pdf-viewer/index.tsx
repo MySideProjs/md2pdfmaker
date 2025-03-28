@@ -59,16 +59,7 @@ const PdfPart = (p: PdfPartProps) => {
   const { isSlides } = usePreviewMode()
 
   return (
-    <div
-      className={`flex flex-col min-h-100% overflow-scroll p-40px`}
-      style={
-        isSlides
-          ? {}
-          : {
-              backgroundColor: mdStyles.overall?.backgroundColor,
-            }
-      }
-    >
+    <div className={`flex flex-col min-h-100% overflow-scroll`}>
       <div id="md-preview" style={isSlides ? {} : mdStyles.overall}>
         <If condition={isSlides}>
           <Then>
@@ -80,6 +71,7 @@ const PdfPart = (p: PdfPartProps) => {
             <MathJaxContext>
               <MathJax>
                 <Markdown
+                  className={"p-40px"}
                   components={{
                     h1: (p) => <h1 {...p} style={mdStyles.h1} />,
                     h2: (p) => <h2 {...p} style={mdStyles.h2} />,
