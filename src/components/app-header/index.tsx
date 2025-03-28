@@ -1,11 +1,11 @@
 import { If, Then } from "react-if"
-import { useLocation } from "react-router"
+import { useLocation, useNavigate } from "react-router"
 import { useIsWide } from "../../hooks"
 import { HeaderButtons } from "../header-buttons"
 import logo from "./logo.png"
 export const AppHeader = () => {
   const isWide = useIsWide()
-
+  const nav = useNavigate()
   const location = useLocation()
   const isAtHomePage = location.pathname === "/"
   return (
@@ -16,7 +16,7 @@ export const AppHeader = () => {
       }}
     >
       {/* Titles */}
-      <div className="flex items-center">
+      <div className="flex items-center cursor-pointer" onClick={() => nav("/")}>
         <img className="h-8 border-gray border-1 border-solid" src={logo} alt="logo" />
         <div className="mr-4" />
         <div>
