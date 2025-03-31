@@ -4,13 +4,13 @@ import { useState } from "react"
 import { If, Then } from "react-if"
 import Markdown from "react-markdown"
 import { useEffectOnce } from "react-use"
-import doc_basic_markdown_tutorial from "./docs/basic-markdown-tutorial.md"
-import doc_quick_start from "./docs/quick-start.md"
-import doc_faq from "./docs/faq.md"
+import { doc_quick_start } from "./docs/quick-start"
+import { doc_faqs } from "./docs/faq"
+import { doc_basic_markdown_tutorial } from "./docs/basic-markdown-tutorial"
 
 export const Docs = () => {
   const [docContent, setDocCont] = useState("")
-  useEffectOnce(() => loadMdContent(doc_quick_start, setDocCont))
+  useEffectOnce(() => setDocCont(doc_quick_start))
   return (
     <div className="flex flex-row">
       <Card className="mr-4">
@@ -18,7 +18,7 @@ export const Docs = () => {
           <List>
             <ListItemButton
               onClick={() => {
-                loadMdContent(doc_quick_start, setDocCont)
+                setDocCont(doc_quick_start)
               }}
             >
               Quick Start
@@ -26,7 +26,7 @@ export const Docs = () => {
 
             <ListItemButton
               onClick={() => {
-                loadMdContent(doc_basic_markdown_tutorial, setDocCont)
+                setDocCont(doc_basic_markdown_tutorial)
               }}
             >
               Basic Markdown Tutorial
@@ -34,7 +34,7 @@ export const Docs = () => {
 
             <ListItemButton
               onClick={() => {
-                loadMdContent(doc_faq, setDocCont)
+                setDocCont(doc_faqs)
               }}
             >
               FAQs
@@ -54,13 +54,4 @@ export const Docs = () => {
       </Card>
     </div>
   )
-}
-
-const loadMdContent = (mdPath: string, cb: (text: string) => void) => {
-  import(mdPath).then((res) => {
-    console.log(res)
-    fetch(res.default)
-      .then((response) => response.text())
-      .then((text) => cb(text))
-  })
 }

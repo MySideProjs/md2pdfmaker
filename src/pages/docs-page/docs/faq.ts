@@ -1,3 +1,4 @@
+export const doc_faqs = `
 # FAQs
 
 ---
@@ -45,3 +46,4 @@ Yes! Toggle Slide Mode in the sidebar to convert your Markdown into a slide-base
 ### Response:
 
 New to Markdown? Visit markdown-to-pdf.com and check the Basic Markdown Tutorial section before writing content.
+`

@@ -1,3 +1,4 @@
+export const doc_quick_start = `
 # Quick Start
 ---
 ## Writing Content
@@ -11,3 +12,4 @@ Customize the appearance of your document using the style configuration sidebar.
 ## Exporting Your Work
 
 Simply click "Export" to generate and save your final document.
+`
