@@ -4,9 +4,9 @@ import { useState } from "react"
 import { If, Then } from "react-if"
 import Markdown from "react-markdown"
 import { useEffectOnce } from "react-use"
-import { doc_quick_start } from "./docs/quick-start"
-import { doc_faqs } from "./docs/faq"
 import { doc_basic_markdown_tutorial } from "./docs/basic-markdown-tutorial"
+import { doc_faqs } from "./docs/faq"
+import { doc_quick_start } from "./docs/quick-start"
 
 export const Docs = () => {
   const [docContent, setDocCont] = useState("")

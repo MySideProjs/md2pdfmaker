@@ -35,6 +35,7 @@ export const HeaderButtons = () => {
 
   const onGotoDocsPage = () => {
     nav("/docs")
+    reportGA("go_to_docs")
   }
 
   // For mobile
