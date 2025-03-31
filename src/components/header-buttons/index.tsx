@@ -7,20 +7,21 @@ import Fab from "@mui/material/Fab"
 import { CSSProperties } from "react"
 import { useToggle } from "react-use"
 import { useIsWide } from "../../hooks"
-import { useMarkdownContent } from "../../state"
+import { useMarkdownContent, usePreviewMode } from "../../state"
 import { reportGA } from "../../utils/ga"
 import { StyleDrawer } from "../markdown-preview-style-drawer"
 import { useNavigate } from "react-router"
 
 export const HeaderButtons = () => {
   const isWide = useIsWide()
+  const { previewMode } = usePreviewMode()
   const [isStyleDrawerOpen, toggleStyleDrawer] = useToggle(false)
   const buttonStyle: CSSProperties = { backgroundColor: "#524C42", marginRight: 10 }
   const { loadFileAndOverwriteMarkdownContent } = useMarkdownContent()
   const nav = useNavigate()
   const onDownload = () => {
     window.print()
-    reportGA("clicked_download_pdf")
+    reportGA(`clicked_download_pdf_in_mode_${previewMode}`)
   }
   const onFolderOpen = () => {
     loadFileAndOverwriteMarkdownContent()

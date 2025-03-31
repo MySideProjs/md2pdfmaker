@@ -10,6 +10,7 @@ import TextField from "@mui/material/TextField"
 import { MdStyles, PreviewMode, useFontsOptions, usePreviewMode, useStylesConf } from "../../state"
 import { defaultFontSizes } from "../../state/defaults"
 import { getPreset, presetsNames } from "../../state/presets"
+import { reportGA } from "../../utils/ga"
 
 export const MdPreviewStyleConfPart = () => {
   return (
@@ -72,6 +73,7 @@ const Basics = () => {
             value={previewMode}
             exclusive
             onChange={(_, v: PreviewMode) => {
+              reportGA(`switch_to_mode_${v}`)
               setPreviewMode(v)
             }}
             aria-label="Platform"
